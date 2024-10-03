@@ -407,7 +407,7 @@ Version:1.0
 	display: inline-block;
 	margin-right: 4px;
 	font-size: 15px;
-	color: #F7941D;
+	color: #F7941D !important;
 	position: relative;
 	top: 1px;
 }
@@ -624,7 +624,7 @@ Version:1.0
 }
 .header.shop .logo {
 	float: left;
-	margin: 19px 0 0;
+	margin: 0px 0 0;
 }
 .header.shop .top-contact {
 	margin-top:0px;
@@ -1537,8 +1537,9 @@ Version:1.0
 	position:relative;
 }
 .small-banner .single-banner img{
-	height:100%;
+	height:300px;
 	width:100%;
+	object-fit: cover;
 	-webkit-transition:all 0.4s ease;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
@@ -1759,9 +1760,15 @@ Version:1.0
 }
 .single-product .product-img a img {
   width: 100%;
+  min-height: 320px;
+  max-height: 320px;
+  object-fit: cover;
 }
 .single-product .product-img a img.hover-img {
   position: absolute;
+  min-height: 320px;
+  max-height: 320px;
+  object-fit: cover;
   left: 0;
   top: 0;
   z-index: 1;
@@ -2896,6 +2903,9 @@ Version:1.0
 .shop-home-list .single-list img{
 	width:100%;
 	height:100%;
+	min-height: 180px;
+    max-height: 180px;
+    object-fit: cover;
 }
 .shop-home-list .single-list .content {
 	padding-top: 45px;
@@ -3700,7 +3710,7 @@ Version:1.0
    Start Shop Services CSS
 ========================================*/
 .shop-services.section {
-	padding: 80px 0 0px 0;
+	padding: 80px 0 80px 0;
 	background: #fff;
 }
 .shop-services.home{
@@ -4910,3 +4920,68 @@ Version:1.0
 /*=============================
 	End Footer CSS
 ===============================*/
+
+.w-max-content{
+	width: max-content !important;
+	float: none !important;
+}
+
+.logo img{
+	max-width: 220px;
+}
+
+.float-0{
+	float: none !important;
+}
+
+nav[role="navigation"] > div:nth-child(1) {
+    margin-top: 50px !important;
+}
+
+nav[role="navigation"] > div:nth-child(1) span {
+    background-color: lightgray !important;
+}
+
+.product-action-2{
+	background-color: orange;
+	padding: 0 5px;
+}
+
+.product-action-2 a{
+	color: #fff !important;
+}
+
+nav[role="navigation"] > div:nth-child(2) {
+    display: none !important;
+}
+
+.st-sticky-share-buttons{
+	display: none !important;
+}
+
+.input-group-btn a{
+	color: #fff;
+}
+
+.btn-primary {
+	color: #fff !important;
+}
+
+.qty button{
+	background: #F7941D !important;
+}
+
+.single-banner img{
+
+}
+
+@media (max-width:769px) {
+	.header-inner{
+		display: none;
+	}
+	.list-main{
+		display: flex;
+		justify-content: space-between;
+	}
+	
+}

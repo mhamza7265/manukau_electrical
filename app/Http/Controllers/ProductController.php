@@ -20,6 +20,7 @@ class ProductController extends Controller
     {
         $products=Product::getAllProduct();
         // return $products;
+        // dd($products);
         return view('backend.product.index')->with('products',$products);
     }
 
@@ -57,7 +58,7 @@ class ProductController extends Controller
             'child_cat_id'=>'nullable|exists:categories,id',
             'is_featured'=>'sometimes|in:1',
             'status'=>'required|in:active,inactive',
-            'condition'=>'required|in:default,new,hot',
+            // 'condition'=>'required|in:default,new,hot',
             'price'=>'required|numeric',
             'discount'=>'nullable|numeric'
         ]);
@@ -141,7 +142,7 @@ class ProductController extends Controller
             'is_featured'=>'sometimes|in:1',
             'brand_id'=>'nullable|exists:brands,id',
             'status'=>'required|in:active,inactive',
-            'condition'=>'required|in:default,new,hot',
+            // 'condition'=>'required|in:default,new,hot',
             'price'=>'required|numeric',
             'discount'=>'nullable|numeric'
         ]);

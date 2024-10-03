@@ -73,11 +73,6 @@
 										</tr>
 									@endforeach
 									<track>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
 										<td class="float-right">
 											<button class="btn float-right" type="submit">Update</button>
 										</td>
@@ -157,7 +152,7 @@
 	<!-- Start Shop Services Area  -->
 	<section class="shop-services section">
 		<div class="container">
-			<div class="row">
+			<div class="row justify-content-between">
 				<div class="col-lg-3 col-md-6 col-12">
 					<!-- Start Single Service -->
 					<div class="single-service">
@@ -167,7 +162,7 @@
 					</div>
 					<!-- End Single Service -->
 				</div>
-				<div class="col-lg-3 col-md-6 col-12">
+				{{-- <div class="col-lg-3 col-md-6 col-12">
 					<!-- Start Single Service -->
 					<div class="single-service">
 						<i class="ti-reload"></i>
@@ -175,7 +170,7 @@
 						<p>Within 30 days returns</p>
 					</div>
 					<!-- End Single Service -->
-				</div>
+				</div> --}}
 				<div class="col-lg-3 col-md-6 col-12">
 					<!-- Start Single Service -->
 					<div class="single-service">
@@ -200,7 +195,7 @@
 	<!-- End Shop Newsletter -->
 
 	<!-- Start Shop Newsletter  -->
-	@include('frontend.layouts.newsletter')
+	{{-- @include('frontend.layouts.newsletter') --}}
 	<!-- End Shop Newsletter -->
 
 @endsection

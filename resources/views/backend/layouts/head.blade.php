@@ -6,7 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>E-SHOP || DASHBOARD</title>
+    <title>MEW || DASHBOARD</title>
+    @php
+    $settings=DB::table('settings')->get();
+    // dd($settings)
+    @endphp  
+    <link rel="icon" type="image/x-icon" href="{{$settings[0]->logo}}">
   
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -15,5 +20,20 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
     @stack('styles')
+    <style>
+        .btn-primary {
+            color: #fff !important;
+        }
+        nav[role="navigation"] > div:nth-child(2) {
+            display: none !important;
+        }
+        nav[role="navigation"] {
+            width: max-content !important;
+            margin-left: auto !important;
+            margin-bottom: 10px !important;
+            margin-right: 10px !important;
+        }
+
+    </style>
   
 </head>

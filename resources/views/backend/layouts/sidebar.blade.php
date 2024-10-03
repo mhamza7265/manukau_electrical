@@ -35,15 +35,15 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <a class="nav-link {{request()->is('admin/banner') || request()->is('admin/banner/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="{{request()->is('admin/banner') || request()->is('admin/banner/create') ? 'true' : ''}}" aria-controls="collapseTwo">
         <i class="fas fa-image"></i>
         <span>Banners</span>
       </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="collapseTwo" class="collapse {{request()->is('admin/banner') || request()->is('admin/banner/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Banner Options:</h6>
-          <a class="collapse-item" href="{{route('banner.index')}}">Banners</a>
-          <a class="collapse-item" href="{{route('banner.create')}}">Add Banners</a>
+          <a class="collapse-item {{request()->is('admin/banner') ? 'active' : ''}}" href="{{route('banner.index')}}">Banners</a>
+          <a class="collapse-item {{request()->is('admin/banner/create') ? 'active' : ''}}" href="{{route('banner.create')}}">Add Banners</a>
         </div>
       </div>
     </li>
@@ -56,59 +56,59 @@
 
     <!-- Categories -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
+        <a class="nav-link {{request()->is('admin/category') || request()->is('admin/category/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="{{request()->is('admin/category') || request()->is('admin/category/create') ? 'true' : 'false'}}" aria-controls="categoryCollapse">
           <i class="fas fa-sitemap"></i>
           <span>Category</span>
         </a>
-        <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="categoryCollapse" class="collapse {{request()->is('admin/category') || request()->is('admin/category/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Category Options:</h6>
-            <a class="collapse-item" href="{{route('category.index')}}">Category</a>
-            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
+            <a class="collapse-item {{request()->is('admin/category') ? 'active' : ''}}" href="{{route('category.index')}}">Category</a>
+            <a class="collapse-item {{request()->is('admin/category/create') ? 'active' : ''}}" href="{{route('category.create')}}">Add Category</a>
           </div>
         </div>
     </li>
     {{-- Products --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">
+        <a class="nav-link {{request()->is('admin/product') || request()->is('admin/product/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="{{request()->is('admin/product') || request()->is('admin/product/create') ? 'true' : ''}}" aria-controls="productCollapse">
           <i class="fas fa-cubes"></i>
           <span>Products</span>
         </a>
-        <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="productCollapse" class="collapse {{request()->is('admin/product') || request()->is('admin/product/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Product Options:</h6>
-            <a class="collapse-item" href="{{route('product.index')}}">Products</a>
-            <a class="collapse-item" href="{{route('product.create')}}">Add Product</a>
+            <a class="collapse-item {{request()->is('admin/product') ? 'active' : ''}}" href="{{route('product.index')}}">Products</a>
+            <a class="collapse-item {{request()->is('admin/product/create') ? 'active' : ''}}" href="{{route('product.create')}}">Add Product</a>
           </div>
         </div>
     </li>
 
     {{-- Brands --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brandCollapse" aria-expanded="true" aria-controls="brandCollapse">
+        <a class="nav-link {{request()->is('admin/brand') || request()->is('admin/brand/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#brandCollapse" aria-expanded="{{request()->is('admin/brand') || request()->is('admin/brand/create') ? 'true' : 'false'}}" aria-controls="brandCollapse">
           <i class="fas fa-table"></i>
           <span>Brands</span>
         </a>
-        <div id="brandCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="brandCollapse" class="collapse {{request()->is('admin/brand') || request()->is('admin/brand/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Brand Options:</h6>
-            <a class="collapse-item" href="{{route('brand.index')}}">Brands</a>
-            <a class="collapse-item" href="{{route('brand.create')}}">Add Brand</a>
+            <a class="collapse-item {{request()->is('admin/brand') ? 'active' : ''}}" href="{{route('brand.index')}}">Brands</a>
+            <a class="collapse-item {{request()->is('admin/brand/create') ? 'active' : ''}}" href="{{route('brand.create')}}">Add Brand</a>
           </div>
         </div>
     </li>
 
     {{-- Shipping --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#shippingCollapse" aria-expanded="true" aria-controls="shippingCollapse">
+        <a class="nav-link {{request()->is('admin/shipping') || request()->is('admin/shipping/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#shippingCollapse" aria-expanded="{{request()->is('admin/shipping') || request()->is('admin/shipping/create') ? 'true' : 'false'}}" aria-controls="shippingCollapse">
           <i class="fas fa-truck"></i>
           <span>Shipping</span>
         </a>
-        <div id="shippingCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="shippingCollapse" class="collapse {{request()->is('admin/shipping') || request()->is('admin/shipping/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Shipping Options:</h6>
-            <a class="collapse-item" href="{{route('shipping.index')}}">Shipping</a>
-            <a class="collapse-item" href="{{route('shipping.create')}}">Add Shipping</a>
+            <a class="collapse-item {{request()->is('admin/shipping') ? 'active' : ''}}" href="{{route('shipping.index')}}">Shipping</a>
+            <a class="collapse-item {{request()->is('admin/shipping/create') ? 'active' : ''}}" href="{{route('shipping.create')}}">Add Shipping</a>
           </div>
         </div>
     </li>
@@ -129,7 +129,7 @@
     </li>
     
 
-    <!-- Divider -->
+    {{-- <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
@@ -182,13 +182,13 @@
         </div>
     </li>
 
-      <!-- Comments -->
-      <li class="nav-item">
-        <a class="nav-link" href="{{route('comment.index')}}">
-            <i class="fas fa-comments fa-chart-area"></i>
-            <span>Comments</span>
-        </a>
-      </li>
+    <!-- Comments -->
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('comment.index')}}">
+          <i class="fas fa-comments fa-chart-area"></i>
+          <span>Comments</span>
+      </a>
+    </li> --}}
 
 
     <!-- Divider -->
@@ -197,11 +197,11 @@
     <div class="sidebar-heading">
         General Settings
     </div>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link" href="{{route('coupon.index')}}">
           <i class="fas fa-table"></i>
           <span>Coupon</span></a>
-    </li>
+    </li> --}}
      <!-- Users -->
      <li class="nav-item">
         <a class="nav-link" href="{{route('users.index')}}">

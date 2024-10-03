@@ -34,10 +34,11 @@ class Category extends Model
     public function sub_products(){
         return $this->hasMany('App\Models\Product','child_cat_id','id')->where('status','active');
     }
-    public static function getProductByCat($slug){
+    public function getProductByCat(){
         // dd($slug);
-        return Category::with('products')->where('slug',$slug)->first();
+        // return Category::with('products')->where('slug',$slug)->first();
         // return Product::where('cat_id',$id)->where('child_cat_id',null)->paginate(10);
+        return $this->hasMany(Product::class, 'cat_id');
     }
     public static function getProductBySubCat($slug){
         // return $slug;

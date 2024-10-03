@@ -19,13 +19,12 @@
           <thead>
             <tr>
               <th>S.N.</th>
+              <th>ID</th>
               <th>Title</th>
               <th>Category</th>
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
               <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
@@ -36,13 +35,12 @@
           <tfoot>
             <tr>
               <th>S.N.</th>
+              <th>ID</th>
               <th>Title</th>
               <th>Category</th>
               <th>Is Featured</th>
               <th>Price</th>
               <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
               <th>Brand</th>
               <th>Stock</th>
               <th>Photo</th>
@@ -59,9 +57,10 @@
               $brands=DB::table('brands')->select('title')->where('id',$product->brand_id)->get();
               @endphp
                 <tr>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$product->id}}</td>
                     <td>{{$product->title}}</td>
-                    <td>{{$product->cat_info['title']}}
+                    <td>{{isset($product->cat_info) ? $product->cat_info['title'] : ""}}
                       <sub>
                           {{$product->sub_cat_info->title ?? ''}}
                       </sub>
@@ -69,8 +68,6 @@
                     <td>{{(($product->is_featured==1)? 'Yes': 'No')}}</td>
                     <td>Rs. {{$product->price}} /-</td>
                     <td>  {{$product->discount}}% OFF</td>
-                    <td>{{$product->size}}</td>
-                    <td>{{$product->condition}}</td>
                     <td> {{ucfirst($product->brand->title)}}</td>
                     <td>
                       @if($product->stock>0)
@@ -109,7 +106,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$products->links()}}</span>
+        <span style="ml-auto">{{$products->links()}}</span>
         @else
           <h6 class="text-center">No Products found!!! Please create Product</h6>
         @endif

@@ -436,7 +436,7 @@
     <!-- Start Shop Services Area  -->
     <section class="shop-services section home">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-between">
                 <div class="col-lg-3 col-md-6 col-12">
                     <!-- Start Single Service -->
                     <div class="single-service">
@@ -446,7 +446,7 @@
                     </div>
                     <!-- End Single Service -->
                 </div>
-                <div class="col-lg-3 col-md-6 col-12">
+                {{-- <div class="col-lg-3 col-md-6 col-12">
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-reload"></i>
@@ -454,7 +454,7 @@
                         <p>Within 30 days returns</p>
                     </div>
                     <!-- End Single Service -->
-                </div>
+                </div> --}}
                 <div class="col-lg-3 col-md-6 col-12">
                     <!-- Start Single Service -->
                     <div class="single-service">
@@ -479,7 +479,7 @@
     <!-- End Shop Services -->
     
     <!-- Start Shop Newsletter  -->
-    <section class="shop-newsletter section">
+    {{-- <section class="shop-newsletter section">
         <div class="container">
             <div class="inner-top">
                 <div class="row">
@@ -498,7 +498,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Shop Newsletter -->
 @endsection
 @push('styles')

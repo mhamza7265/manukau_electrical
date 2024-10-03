@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\User;
 use PDF;
@@ -44,6 +45,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+        $cart = Helper::getAllProductFromCart();
+       
+        // dd($cart);
         $this->validate($request,[
             'first_name'=>'string|required',
             'last_name'=>'string|required',
@@ -52,7 +57,9 @@ class OrderController extends Controller
             'coupon'=>'nullable|numeric',
             'phone'=>'numeric|required',
             'post_code'=>'string|nullable',
-            'email'=>'string|required'
+            'email'=>'string|required',
+            'shipping' => 'required',
+            'payment_method' => 'required'
         ]);
         // return $request->all();
 
@@ -144,10 +151,31 @@ class OrderController extends Controller
             session()->forget('cart');
             session()->forget('coupon');
         }
+
+        foreach($cart as $cartItem){
+            $quantity = $cartItem->quantity;
+            $productId = $cartItem->product_id;
+            $product = Product::find($productId);
+            if ($product) {
+                // Check if there's enough stock
+                if ($product->stock >= $quantity) {
+                    $product->stock -= $quantity; // Subtract quantity from stock
+                    $product->save(); // Save the updated product
+                } else {
+                    // Handle the case where there's not enough stock
+                    // You could throw an exception or log a message, for example
+                    Log::warning("Insufficient stock for product ID {$productId}. Requested: {$quantity}, Available: {$product->stock}");
+                }
+            } else {
+                // Handle the case where the product is not found
+                Log::error("Product with ID {$productId} not found.");
+            }
+        }
+
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
         // dd($users);        
-        request()->session()->flash('success','Your product successfully placed in order');
+        request()->session()->flash('success','Your order is successfully placed!');
         return redirect()->route('home');
     }
 

@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','E-SHOP || HOME PAGE')
+@section('title','MEW || HOME PAGE')
 @section('main-content')
 <!-- Slider Area -->
 @if(count($banners)>0)
@@ -168,7 +168,7 @@
     $featured=DB::table('products')->where('is_featured',1)->where('status','active')->orderBy('id','DESC')->limit(1)->get();
 @endphp --}}
 <!-- Start Midium Banner  -->
-<section class="midium-banner">
+{{-- <section class="midium-banner">
     <div class="container">
         <div class="row">
             @if($featured)
@@ -192,11 +192,11 @@
             @endif
         </div>
     </div>
-</section>
+</section> --}}
 <!-- End Midium Banner -->
 
 <!-- Start Most Popular -->
-<div class="product-area most-popular section">
+{{-- <div class="product-area most-popular section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -220,7 +220,6 @@
                                     @endphp
                                     <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                     <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                    {{-- <span class="out-of-stock">Hot</span> --}}
                                 </a>
                                 <div class="button-head">
                                     <div class="product-action">
@@ -250,7 +249,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- End Most Popular Area -->
 
 <!-- Start Shop Home List  -->
@@ -304,7 +303,7 @@
 <!-- End Shop Home List  -->
 
 <!-- Start Shop Blog  -->
-<section class="shop-blog section">
+{{-- <section class="shop-blog section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -333,13 +332,13 @@
 
         </div>
     </div>
-</section>
+</section> --}}
 <!-- End Shop Blog  -->
 
 <!-- Start Shop Services Area -->
 <section class="shop-services section home">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-between">
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Start Single Service -->
                 <div class="single-service">
@@ -349,7 +348,7 @@
                 </div>
                 <!-- End Single Service -->
             </div>
-            <div class="col-lg-3 col-md-6 col-12">
+            {{-- <div class="col-lg-3 col-md-6 col-12">
                 <!-- Start Single Service -->
                 <div class="single-service">
                     <i class="ti-reload"></i>
@@ -357,7 +356,7 @@
                     <p>Within 30 days returns</p>
                 </div>
                 <!-- End Single Service -->
-            </div>
+            </div> --}}
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Start Single Service -->
                 <div class="single-service">
@@ -381,7 +380,7 @@
 </section>
 <!-- End Shop Services Area -->
 
-@include('frontend.layouts.newsletter')
+{{-- @include('frontend.layouts.newsletter') --}}
 
 <!-- Modal -->
 @if($product_lists)
