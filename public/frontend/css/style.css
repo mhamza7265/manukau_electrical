@@ -359,7 +359,7 @@ Version:1.0
 }
 .header.shop .topbar {
 	border: none;
-	padding: 12px 0px;
+	padding: 10px 0px 8px 0px;
 }
 .header.shop .nav-inner {
 	margin-right: 188px;
@@ -388,16 +388,20 @@ Version:1.0
 	display: inline-block;
 	margin-right: 4px;
 	font-size: 15px;
-	color: #F7941D;
+	color: #fff;
 	position: relative;
 	top: 3px;
 }
 .header.shop .right-content{
 	float:right;
 }
+
+.logo-mobile{
+	display: none;
+}
 .header.shop .list-main li {
 	display: inline-block;
-	color: #333;
+	color: #fff;
 	font-size: 13px;
 	font-weight: 500;
 	border-right: 1px solid #f0f0f0;
@@ -407,7 +411,7 @@ Version:1.0
 	display: inline-block;
 	margin-right: 4px;
 	font-size: 15px;
-	color: #F7941D !important;
+	color: #fff !important;
 	position: relative;
 	top: 1px;
 }
@@ -416,10 +420,41 @@ Version:1.0
 	border:none;
 }
 .header.shop .list-main li a{
-	color:#333;
+	color:#fff;
 }
 .header.shop .list-main li a:hover{
-	color:#F7941D;
+	color:#000;
+}
+
+.header.shop .list-main-auth li {
+	display: inline-block;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 500;
+	border-right: 1px solid #f0f0f0;
+	padding: 0px 13px;
+}
+.header.shop .list-main-auth li i {
+	display: inline-block;
+	margin-right: 4px;
+	font-size: 15px;
+	color: #fff !important;
+	position: relative;
+	top: 1px;
+}
+.header.shop .list-main-auth li:last-child{
+	padding-right:0;
+	border:none;
+}
+.header.shop .list-main-auth li a{
+	color:#fff;
+}
+.header.shop .list-main-auth li a:hover{
+	color:#000;
+}
+
+.sinlge-bar i {
+	color: #fff !important;
 }
 .header.shop .nav li {
 	margin-right: 40px;
@@ -609,7 +644,7 @@ Version:1.0
 	float: left;
 }
 .header.shop .topbar {
-	background-color: #fff;
+	background-color: #db9c3d;
 	border: none;
 }
 .header.shop.v3 .topbar{
@@ -711,7 +746,7 @@ Version:1.0
 	text-align: center;
 	font-size: 18px;
 	color: #fff;
-	background: #333333;
+	background: #db9c3d;
 	position: absolute;
 	right: -2px;
 	top: -1px;
@@ -738,14 +773,14 @@ Version:1.0
 }
 .header.shop .middle-inner {
 	padding: 20px 0;
-	background: #fff;
-	border-top: 1px solid #eee;
+	background: #060052;
+	border-top: 1px solid #504c7e;
 }
 .header.shop.v3 .middle-inner {
 	border:none;
 }
 .header.shop .header-inner {
-	background: #333;
+	background: #db9c3d;
 }
 .header.shop.v3 .header-inner {
 	background: transparent;
@@ -957,7 +992,7 @@ Version:1.0
 }
 .header.shop .nav li:hover a{
 	color:#fff;
-	background:#F7941D;
+	background:#814b0a;
 }
 .header.shop.v2 .nav li:hover a{
 	color:#F7941D;
@@ -965,7 +1000,7 @@ Version:1.0
 }
 .header.shop .nav li.active a{
 	color:#fff;
-	background:#F7941D;
+	background:#533006;
 }
 .header.shop.v2 .nav li.active a{
 	color:#333 !important;
@@ -1017,11 +1052,14 @@ Version:1.0
 .header.shop .nav li .dropdown li .dropdown.sub-dropdown li a:hover{
 	background:#F7941D;
 }
+.right-bar-mobile{
+	display: none;
+}
 .header.shop .right-bar {
 	display: inline-block;
 	padding: 0;
 	margin: 0;
-	top: 20px;
+	/* top: 20px; */
 	float: right;
 	position: relative;
 }
@@ -1043,7 +1081,7 @@ Version:1.0
 	position: absolute;
 	top: -7px;
 	right: -8px;
-	background: #f6931d;
+	background: #000;
 	width: 18px;
 	height: 18px;
 	line-height: 18px;
@@ -1061,6 +1099,9 @@ Version:1.0
 }
 .header.shop .right-bar .sinlge-bar li a:hover{
 	color:#F7941D;
+}
+.cursor-pointer{
+	cursor: pointer !important;
 }
 .mobile-search{
 	display:none;
@@ -1158,7 +1199,7 @@ Version:1.0
 	visibility:visible;
 }
 .header.sticky .header-inner .nav li a {
-	color: #333;
+	color: #fff;
 }
 .header.sticky.v3 .header-inner .nav li a {
 	color: #fff;
@@ -1185,7 +1226,7 @@ Version:1.0
 	position:fixed;
 	top:0;
 	left:0;
-	background:#fff;
+	background:#db9c3d;
 	animation: fadeInDown 1s both 0.2s;
 	-webkit-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -4973,6 +5014,23 @@ nav[role="navigation"] > div:nth-child(2) {
 
 .single-banner img{
 
+}
+
+.accordion .card-header, .accordion .card-body{
+	padding: 0 !important;
+}
+
+.sub-category{
+	border-bottom: 1px solid lightgray;
+}
+
+.sub-category:last-child{
+	border-bottom: none;
+}
+
+.sub-category a{
+	display: block;
+	padding-left: 30px;
 }
 
 @media (max-width:769px) {

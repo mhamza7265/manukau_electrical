@@ -11,7 +11,7 @@
     $settings=DB::table('settings')->get();
     // dd($settings)
     @endphp  
-    <link rel="icon" type="image/x-icon" href="{{$settings[0]->logo}}">
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/photos/31/MEW_favicon_1.svg')}}">
   
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">

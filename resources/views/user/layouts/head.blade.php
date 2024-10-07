@@ -6,7 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>E-SHOP || DASHBOARD</title>
+    <title>MEW || DASHBOARD</title>
+
+    <link rel="icon" type="image/x-icon" href="{{asset('storage/photos/31/MEW_favicon_1.svg')}}">
   
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
