@@ -56,6 +56,21 @@
 
     <!-- Categories -->
     <li class="nav-item">
+      <a class="nav-link {{request()->is('admin/main-category') || request()->is('admin/main-category/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#mainCategoryCollapse" aria-expanded="{{request()->is('admin/main-category') || request()->is('admin/main-category/create') ? 'true' : 'false'}}" aria-controls="mainCategoryCollapse">
+        <i class="fas fa-sitemap"></i>
+        <span>Main Category</span>
+      </a>
+      <div id="mainCategoryCollapse" class="collapse {{request()->is('admin/main-category') || request()->is('admin/main-category/create') ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Main Category Options:</h6>
+          <a class="collapse-item {{request()->is('admin/main-category') ? 'active' : ''}}" href="{{route('main-category.index')}}">Main Category</a>
+          <a class="collapse-item {{request()->is('admin/main-category/create') ? 'active' : ''}}" href="{{route('main-category.create')}}">Add Main Category</a>
+        </div>
+      </div>
+    </li>
+
+    <!--Sub Categories -->
+    <li class="nav-item">
         <a class="nav-link {{request()->is('admin/category') || request()->is('admin/category/create') ? '' : 'collapsed'}}" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="{{request()->is('admin/category') || request()->is('admin/category/create') ? 'true' : 'false'}}" aria-controls="categoryCollapse">
           <i class="fas fa-sitemap"></i>
           <span>Category</span>
@@ -122,11 +137,11 @@
     </li>
 
     <!-- Reviews -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('review.index')}}">
             <i class="fas fa-comments"></i>
             <span>Reviews</span></a>
-    </li>
+    </li> --}}
     
 
     {{-- <!-- Divider -->

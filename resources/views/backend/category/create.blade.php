@@ -9,7 +9,7 @@
         {{csrf_field()}}
         <div class="form-group">
           <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
+          <input id="inputTitle" type="text" name="title" placeholder="Enter Title"  value="{{old('title')}}" class="form-control">
           @error('title')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -23,18 +23,18 @@
           @enderror
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="is_parent">Is Parent</label><br>
           <input type="checkbox" name='is_parent' id='is_parent' value='1' checked> Yes                        
-        </div>
+        </div> --}}
         {{-- {{$parent_cats}} --}}
 
-        <div class="form-group d-none" id='parent_cat_div'>
-          <label for="parent_id">Parent Category</label>
-          <select name="parent_id" class="form-control">
-              <option value="">--Select any category--</option>
-              @foreach($parent_cats as $key=>$parent_cat)
-                  <option value='{{$parent_cat->id}}'>{{$parent_cat->title}}</option>
+        <div class="form-group" id='parent_cat_div'>
+          <label for="parent_id">Main Category</label>
+          <select name="main_category_id" class="form-control">
+              <option value="">Select Main Category</option>
+              @foreach($mainCategories as $key=>$parent_cat)
+                  <option value='{{$parent_cat->id}}'>{{$parent_cat->name}}</option>
               @endforeach
           </select>
         </div>
@@ -47,9 +47,9 @@
                   <i class="fa fa-picture-o"></i> Choose
                   </a>
               </span>
-          <input id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
-        </div>
-        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+            <input id="thumbnail" class="form-control" type="text" name="photo" value="{{old('photo')}}">
+          </div>
+          <div id="holder" style="margin-top:15px;max-height:100px;"></div>
 
           @error('photo')
           <span class="text-danger">{{$message}}</span>

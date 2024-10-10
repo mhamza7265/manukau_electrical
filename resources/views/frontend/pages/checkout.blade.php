@@ -225,7 +225,7 @@
                                                 <option value="MM">Myanmar [Burma]</option>
                                                 <option value="NA">Namibia</option>
                                                 <option value="NR">Nauru</option>
-                                                <option value="NP" selected="selected">Nepal</option>
+                                                <option value="NP">Nepal</option>
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>

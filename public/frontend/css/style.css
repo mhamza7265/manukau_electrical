@@ -1805,6 +1805,15 @@ Version:1.0
   max-height: 320px;
   object-fit: cover;
 }
+.featured-products .single-product .product-img a img{
+  width: 100%;
+  min-height: 175px;
+  max-height: 185px;
+  object-fit: cover;
+}
+.featured-products .single-product{
+	margin-top: 0;
+}
 .single-product .product-img a img.hover-img {
   position: absolute;
   min-height: 320px;
@@ -4967,6 +4976,12 @@ Version:1.0
 	float: none !important;
 }
 
+.card .image-div{
+	min-height: 260px;
+	max-height: 260px;
+	overflow: hidden;
+}
+
 .logo img{
 	max-width: 220px;
 }
@@ -5017,7 +5032,7 @@ nav[role="navigation"] > div:nth-child(2) {
 }
 
 .accordion .card-header, .accordion .card-body{
-	padding: 0 !important;
+	padding: 10px !important;
 }
 
 .sub-category{
@@ -5032,6 +5047,7 @@ nav[role="navigation"] > div:nth-child(2) {
 	display: block;
 	padding-left: 30px;
 }
+
 
 @media (max-width:769px) {
 	.header-inner{

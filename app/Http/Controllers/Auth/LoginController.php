@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Socialite;
 use App\User;
 use Auth;
+use Laravel\Socialite\Facades\Socialite as FacadesSocialite;
+
 class LoginController extends Controller
 {
     /*
@@ -48,12 +50,12 @@ class LoginController extends Controller
     public function redirect($provider)
     {
         // dd($provider);
-     return Socialite::driver($provider)->redirect();
+     return FacadesSocialite::driver($provider)->redirect();
     }
  
     public function Callback($provider)
     {
-        $userSocial =   Socialite::driver($provider)->stateless()->user();
+        $userSocial =   FacadesSocialite::driver($provider)->stateless()->user();
         $users      =   User::where(['email' => $userSocial->getEmail()])->first();
         // dd($users);
         if($users){

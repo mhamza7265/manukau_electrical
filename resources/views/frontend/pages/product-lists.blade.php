@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','E-SHOP || PRODUCT PAGE')
+@section('title','MEW || PRODUCT PAGE')
 
 @section('main-content')
 	
@@ -26,7 +26,7 @@
 			<section class="product-area shop-sidebar shop-list shop section">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-3 col-md-4 col-12">
+						{{-- <div class="col-lg-3 col-md-4 col-12">
 							<div class="shop-sidebar">
                                 <!-- Single Widget -->
                                 <div class="single-widget category">
@@ -53,93 +53,48 @@
 											@endforeach
 										</li>
 										@endif
-                                        {{-- @foreach(Helper::productCategoryList('products') as $cat)
-                                            @if($cat->is_parent==1)
-												<li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
-											@endif
-                                        @endforeach --}}
                                     </ul>
                                 </div>
                                 <!--/ End Single Widget -->
                                 <!-- Shop By Price -->
-								{{-- <div class="single-widget range">
-									<h3 class="title">Shop by Price</h3>
-									<div class="price-filter">
-										<div class="price-filter-inner">
-											<div id="slider-range" data-min="10" data-max="2000" data-currency="%"></div>
-												<div class="price_slider_amount">
-												<div class="label-input">
-													<span>Range:</span>
-													<input type="text" id="amount" name="price_range" value='@if(!empty($_GET['price'])) {{$_GET['price']}} @endif' placeholder="Add Your Price"/>
-												</div>
+								
+								<!--/ End Shop By Price -->
+                                <!-- Single Widget -->
+                                
+                                <!--/ End Single Widget -->
+                                <!-- Single Widget -->
+                                
+                                <!--/ End Single Widget -->
+                        	</div>
+						</div> --}}
+						<!-- categories list -->
+						<div class="col-lg-3 category-div">
+							<div class="accordion" id="accordionExample">
+								<h5 class="my-3 text-center">Categories</h5>
+								@foreach($categories as $cat)
+									@if (count($cat->subCategories) > 0)
+										<div class="card">
+											<div class="card-header text-center cursor-pointer" id="heading{{$loop->iteration}}" data-toggle="collapse" data-target="#collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="collapse{{$loop->iteration}}">
+												{{$cat->name}}
 											</div>
-											@php
-												$max=DB::table('products')->max('price');
-												// dd($max);
-											@endphp
-											<div id="slider-range" data-min="0" data-max="{{$max}}"></div>
-											<div class="product_filter">
-											<button type="submit" class="filter_button">Filter</button>
-											<div class="label-input">
-												<span>Range:</span>
-												<input style="" type="text" id="amount" readonly/>
-												<input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif"/>
+						
+											<div id="collapse{{$loop->iteration}}" class="collapse" aria-labelledby="heading{{$loop->iteration}}" data-parent="#accordionExample">
+											<div class="card-body">
+												<ul class="sub-categories">
+													@foreach ($cat->subCategories as $subCategory)
+														<li class="sub-category">
+															<a href="{{route('products', $subCategory->slug)}}">{{$subCategory->title}}</a>
+														</li>
+													@endforeach
+												</ul>
 											</div>
 											</div>
 										</div>
-									</div>
-									<ul class="check-box-list">
-										<li>
-											<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
-										</li>
-										<li>
-											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
-										</li>
-										<li>
-											<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
-										</li>
-									</ul>
-								</div> --}}
-								<!--/ End Shop By Price -->
-                                <!-- Single Widget -->
-                                {{-- <div class="single-widget recent-post">
-                                    <h3 class="title">Recent post</h3>
-                                    @foreach($recent_products as $product)
-                                        <!-- Single Post -->
-                                        @php 
-                                            $photo=explode(',',$product->photo);
-                                        @endphp
-                                        <div class="single-post first">
-                                            <div class="image">
-                                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            </div>
-                                            <div class="content">
-                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
-                                                @php
-                                                    $org=($product->price-($product->price*$product->discount)/100);
-                                                @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>                                                
-                                            </div>
-                                        </div>
-                                        <!-- End Single Post -->
-                                    @endforeach
-                                </div> --}}
-                                <!--/ End Single Widget -->
-                                <!-- Single Widget -->
-                                {{-- <div class="single-widget category">
-                                    <h3 class="title">Brands</h3>
-                                    <ul class="categor-list">
-                                        @php
-                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
-                                        @endphp
-                                        @foreach($brands as $brand)
-                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div> --}}
-                                <!--/ End Single Widget -->
-                        	</div>
+									@endif
+								@endforeach
+							</div>
 						</div>
+						<!-- categories list end -->
 						<div class="col-lg-9 col-md-8 col-12">
 							<div class="row">
 								<div class="col-12">

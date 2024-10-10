@@ -161,6 +161,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
 
         // unisharp
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
@@ -237,6 +239,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ],
 

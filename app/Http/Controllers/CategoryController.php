@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\MainCategory;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -15,9 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category=Category::getAllCategory();
+        $category = Category::getAllCategory();
+        $mainCategory = MainCategory::get();
         // return $category;
-        return view('backend.category.index')->with('categories',$category);
+        return view('backend.category.index', ['categories' => $category, 'mainCategories' => $mainCategory]);
     }
 
     /**
@@ -28,7 +30,8 @@ class CategoryController extends Controller
     public function create()
     {
         $parent_cats=Category::where('is_parent',1)->orderBy('title','ASC')->get();
-        return view('backend.category.create')->with('parent_cats',$parent_cats);
+        $mainCategory = MainCategory::get();
+        return view('backend.category.create', ['parent_cats' => $parent_cats, 'mainCategories' => $mainCategory]);
     }
 
     /**
@@ -42,11 +45,11 @@ class CategoryController extends Controller
         // return $request->all();
         $this->validate($request,[
             'title'=>'string|required',
+            'main_category_id' => 'required',
             'summary'=>'string|nullable',
             'photo'=>'string|nullable',
             'status'=>'required|in:active,inactive',
-            'is_parent'=>'sometimes|in:1',
-            'parent_id'=>'nullable|exists:categories,id',
+            'is_parent'=>'nullable',
         ]);
         $data= $request->all();
         $slug=Str::slug($request->title);
@@ -55,14 +58,14 @@ class CategoryController extends Controller
             $slug=$slug.'-'.date('ymdis').'-'.rand(0,999);
         }
         $data['slug']=$slug;
-        $data['is_parent']=$request->input('is_parent',0);
+        $data['is_parent'] = $request->input('is_parent',0);
         // return $data;   
         $status=Category::create($data);
         if($status){
-            request()->session()->flash('success','Category successfully added');
+            toast('Category Added Successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error occurred, Please try again!');
+            toast('Error occurred, Please try again!','error');
         }
         return redirect()->route('category.index');
 
@@ -89,8 +92,9 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $parent_cats=Category::where('is_parent',1)->get();
+        $mainCategories = MainCategory::get();
         $category=Category::findOrFail($id);
-        return view('backend.category.edit')->with('category',$category)->with('parent_cats',$parent_cats);
+        return view('backend.category.edit', ['category' => $category, 'parent_cats' => $parent_cats, 'mainCategories' => $mainCategories]);
     }
 
     /**
@@ -102,25 +106,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all();
+        // dd($request->all());
         $category=Category::findOrFail($id);
         $this->validate($request,[
             'title'=>'string|required',
+            'main_category_id' => 'required',
             'summary'=>'string|nullable',
             'photo'=>'string|nullable',
             'status'=>'required|in:active,inactive',
-            'is_parent'=>'sometimes|in:1',
-            'parent_id'=>'nullable|exists:categories,id',
         ]);
         $data= $request->all();
+        // dd($data);
         $data['is_parent']=$request->input('is_parent',0);
         // return $data;
+
         $status=$category->fill($data)->save();
+
         if($status){
-            request()->session()->flash('success','Category successfully updated');
+            toast('Category Updated Successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error occurred, Please try again!');
+            toast('Error occurred, Please try again!','error');
         }
         return redirect()->route('category.index');
     }

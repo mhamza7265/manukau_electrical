@@ -49,7 +49,8 @@
     Route::get('user/register', [FrontendController::class, 'register'])->name('register.form');
     Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 // Reset password
-    Route::post('password-reset', [FrontendController::class, 'showResetForm'])->name('password.reset');
+    Route::get('password-forgot', [FrontendController::class, 'showResetForm'])->name('password.forgot');
+    Route::get('password-reset', [FrontendController::class, 'passwordReset'])->name('password.reset');
 // Socialite
     Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
     Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
@@ -60,12 +61,15 @@
     Route::get('/home', [FrontendController::class, 'index']);
     Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
     Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+    Route::get('/categories', [FrontendController::class, 'categories'])->name('categories');
+    Route::get('/sub-categories/{id}', [FrontendController::class, 'subCategories'])->name('sub-categories');
     Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
     Route::get('product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
     Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
     Route::get('/product-cat/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
     Route::get('/product-sub-cat/{slug}/{sub_slug}', [FrontendController::class, 'productSubCat'])->name('product-sub-cat');
     Route::get('/product-brand/{slug}', [FrontendController::class, 'productBrand'])->name('product-brand');
+    Route::get('products/{slug}', [frontendController::class, 'productsByCat'])->name('products');
 // Cart section
     Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
     Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
@@ -134,6 +138,8 @@
         // Profile
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin-profile');
         Route::post('/profile/{id}', [AdminController::class, 'profileUpdate'])->name('profile-update');
+        // Main Category
+        Route::resource('/main-category', 'MainCategoryController');
         // Category
         Route::resource('/category', 'CategoryController');
         // Product

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\PostTag;
 use App\Models\PostCategory;
 use App\Models\Post;
+use App\Models\MainCategory;
 use App\Models\Cart;
 use App\Models\Brand;
 use App\User;
@@ -21,27 +22,45 @@ class FrontendController extends Controller
 {
    
     public function index(Request $request){
-        return redirect()->route($request->user()->role);
+        $categories = MainCategory::with('subCategories')->get();
+        return redirect()->route($request->user()->role, ['categories' => $categories]);
     }
 
     public function home(){
         $featured=Product::where('status','active')->where('is_featured',1)->orderBy('price','DESC')->limit(2)->get();
         $posts=Post::where('status','active')->orderBy('id','DESC')->limit(3)->get();
         $banners=Banner::where('status','active')->limit(3)->orderBy('id','DESC')->get();
+        $categories = MainCategory::with('subCategories')->get();
         // return $banner;
         $products=Product::where('status','active')->orderBy('id','DESC')->limit(8)->get();
         $category=Category::where('status','active')->where('is_parent',1)->orderBy('title','ASC')->get();
         // return $category;
+        $subCategories = Category::get();
+        // dd($categories);
         return view('frontend.index')
                 ->with('featured',$featured)
                 ->with('posts',$posts)
                 ->with('banners',$banners)
                 ->with('product_lists',$products)
-                ->with('category_lists',$category);
+                ->with('category_lists',$category)
+                ->with('categories', $categories)
+                ->with('subCategories', $subCategories);
     }   
 
     public function aboutUs(){
         return view('frontend.pages.about-us');
+    }
+
+    public function categories(){
+        $categoriesList = MainCategory::with('subCategories')->paginate(10);
+        $categories = MainCategory::with('subCategories')->get();
+        return view('frontend.pages.main-category', ['categories' => $categories, 'categoriesList' => $categoriesList]);
+    }
+
+    public function subCategories($id){
+        $categoriesList = MainCategory::find($id)->subCategories()->paginate(10);
+        $categories = MainCategory::with('subCategories')->get();
+        return view('frontend.pages.sub-category', ['categories' => $categories, 'categoriesList' => $categoriesList]);
     }
 
     public function contact(){
@@ -99,8 +118,9 @@ class FrontendController extends Controller
         }
         // Sort by name , price, category
 
+        $categories = MainCategory::with('subCategories')->get();
       
-        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
+        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products)->with('categories' , $categories);
     }
     public function productLists(){
         $products=Product::query();
@@ -147,8 +167,9 @@ class FrontendController extends Controller
         }
         // Sort by name , price, category
 
-      
-        return view('frontend.pages.product-lists')->with('products',$products)->with('recent_products',$recent_products);
+        $categories = MainCategory::with('subCategories')->get();
+
+        return view('frontend.pages.product-lists')->with('products',$products)->with('recent_products',$recent_products)->with('categories', $categories);
     }
     public function productFilter(Request $request){
             $data= $request->all();
@@ -248,6 +269,14 @@ class FrontendController extends Controller
             return view('frontend.pages.product-lists')->with('products',$products->sub_products)->with('recent_products',$recent_products);
         }
 
+    }
+
+    public function productsByCat (Request $request, $slug)
+    {
+        $categories = MainCategory::with('subCategories')->get();
+        $category = Category::where('slug', $slug)->first();
+        $products = $category->products()->paginate(10);
+        return view('frontend.pages.product-grids', ['products' => $products, 'categories' => $categories]);
     }
 
     public function blog(){
@@ -404,6 +433,11 @@ class FrontendController extends Controller
     // Reset password
     public function showResetForm(){
         return view('auth.passwords.old-reset');
+    }
+
+    public function passwordReset(Request $request){
+        $token = $request->query('token');
+        return view('auth.passwords.reset', ['token' => $token]);
     }
 
     public function subscribe(Request $request){

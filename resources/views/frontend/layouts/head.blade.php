@@ -15,6 +15,8 @@ $settings=DB::table('settings')->get();
 @endphp  
 <link rel="icon" type="image/x-icon" href="{{asset('storage/photos/31/MEW_favicon_1.svg')}}">
 
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
 <!-- StyleSheet -->
 <link rel="manifest" href="/manifest.json">
 <!-- Bootstrap -->

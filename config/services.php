@@ -30,19 +30,25 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'github' => [
-        'client_id' => 'YOUR_GITHUB_API', //Github API
-        'client_secret' => 'YOUR_GITHUB_SECRET', //Github Secret
-        'redirect' => 'http://localhost:8000/login/github/callback',
+        'client_id' => env('GITHUB_API'), //Github API
+        'client_secret' => env('GITHUB_SECRET'), //Github Secret
+        'redirect' => env('domain') . '/login/github/callback',
      ],
      'google' => [
-        'client_id' => 'YOUR_GOOGLE_API', //Google API
-        'client_secret' => 'YOUR_GOOGLE_SECRET', //Google Secret
-        'redirect' => 'http://localhost:8000/login/google/callback',
+        'client_id' => env('GOOGLE_API'), //Google API
+        'client_secret' => env('GOOGLE_SECRET'), //Google Secret
+        'redirect' => env('domain') . '/login/google/callback',
      ],
      'facebook' => [
-        'client_id' => 'YOUR_FACEBOOK_API', //Facebook API
-        'client_secret' => 'YOUR_FACEBOK_SECRET', //Facebook Secret
-        'redirect' => 'http://localhost:8000/login/facebook/callback',
+        'client_id' => env('FACEBOOK_API'), //Facebook API
+        'client_secret' => env('FACEBOK_SECRET'), //Facebook Secret
+        'redirect' => env('domain') . '/login/facebook/callback',
      ],
+
+     'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
+
 
 ];
