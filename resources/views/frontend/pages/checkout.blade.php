@@ -229,7 +229,7 @@
                                                 <option value="NL">Netherlands</option>
                                                 <option value="AN">Netherlands Antilles</option>
                                                 <option value="NC">New Caledonia</option>
-                                                <option value="NZ">New Zealand</option>
+                                                <option value="NZ" selected>New Zealand</option>
                                                 <option value="NI">Nicaragua</option>
                                                 <option value="NE">Niger</option>
                                                 <option value="NG">Nigeria</option>
@@ -365,7 +365,7 @@
                                             <li class="shipping">
                                                 Shipping Cost
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
-                                                    <select name="shipping" class="nice-select">
+                                                    <select name="shipping" class="nice-select" required>
                                                         <option value="">Select your address</option>
                                                         @foreach(Helper::shipping() as $shipping)
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
@@ -420,7 +420,7 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn">proceed to checkout</button>
+                                            <button type="button" id="checkoutButton" class="btn">proceed to checkout</button>
                                         </div>
                                     </div>
                                 </div>
@@ -576,7 +576,63 @@
 			});
 
 		});
-
 	</script>
+
+    <script type="text/javascript">
+        var csrfToken = '{{ csrf_token() }}'; // Directly embed the token
+        // Step 1: Initialize Stripe object with your publishable key
+        const stripe = Stripe('pk_test_51OgnngCZAiYypOnUtpzuyqpnUAilEOQyEk9M8aXZ1zl2sfQV7iWNsbdfvEDhlHbe1iF3lkGosYA6TYFExeYElaM3005kpwWTxc'); // Replace with your actual publishable key
+      
+        // Step 2: Handle click event for the checkout button
+        $('#checkoutButton').on('click', function() {
+            console.log("trig")
+            var formData = {
+                first_name: $('input[name="first_name"]').val(),
+                last_name: $('input[name="last_name"]').val(),
+                email: $('input[name="email"]').val(),
+                phone: $('input[name="phone"]').val(),
+                country: $('select[name="country"]').val(),
+                address1: $('input[name="address1"]').val(),
+                address2: $('input[name="address2"]').val(),
+                post_code: $('input[name="post_code"]').val(),
+                shipping: $('select[name="shipping"]').val(),
+                payment_method: $('input[name="payment_method"]:checked').val(),
+            };
+            console.log("form", formData)
+          // Make a POST request to the backend to create a Stripe Checkout session
+          $.ajax({
+            url: '/checkout/create',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // Use the embedded token
+            },
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(session) {
+                console.log("session", session)
+              if (!session.status) {
+                if(session.type == 'validation_error'){
+                    console.log('yes')
+                    Swal.fire({
+                        title: 'Oops',
+                        text: session.message,
+                        icon: 'error',
+                        padding: "2em"
+                        })
+                }
+                // alert(session.error); // Handle any error returned from backend
+              } else {
+                // Step 3: Redirect the user to the Stripe Checkout page using the session ID
+                stripe.redirectToCheckout({ sessionId: session.id });
+              }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.error('Error:', textStatus, errorThrown);
+            }
+          });
+        });
+      </script>
+      
+    
 
 @endpush

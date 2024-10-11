@@ -15,6 +15,7 @@
     use App\Http\Controllers\PayPalController;
     use App\Http\Controllers\NotificationController;
     use App\Http\Controllers\HomeController;
+    use App\Http\Controllers\PaymentController;
     use \UniSharp\LaravelFilemanager\Lfm;
 
     /*
@@ -76,27 +77,33 @@
     Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
     Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update');
 
-    Route::get('/cart', function () {
-        return view('frontend.pages.cart');
-    })->name('cart');
+    Route::get('/cart', function () {return view('frontend.pages.cart');})->name('cart');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
+
 // Wishlist
-    Route::get('/wishlist', function () {
-        return view('frontend.pages.wishlist');
-    })->name('wishlist');
+    Route::get('/wishlist', function () {return view('frontend.pages.wishlist');})->name('wishlist');
     Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
     Route::get('wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
-    Route::post('cart/order', [OrderController::class, 'store'])->name('cart.order');
-    Route::get('order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
-    Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');
     Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
     Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');
     Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFilter'])->name('shop.filter');
+
+    // order
+    Route::get('/charge', [PaymentController::class, 'index'])->name('checkout.index');
+    Route::post('cart/order', [OrderController::class, 'store'])->name('cart.order');
+    Route::get('order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
+    Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+    Route::post('checkout/create', [PaymentController::class, 'createCheckoutSession'])->name('checkout.create');
+
 // Order Track
     Route::get('/product/track', [OrderController::class, 'orderTrack'])->name('order.track');
     Route::post('product/track/order', [OrderController::class, 'productTrackOrder'])->name('product.track.order');
-// Blog
+
+
+
+
+    // Blog
     Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
     Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
     Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
@@ -116,6 +123,8 @@
     Route::resource('/comment', 'PostCommentController');
 // Coupon
     Route::post('/coupon-store', [CouponController::class, 'couponStore'])->name('coupon-store');
+
+
 // Payment
     Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
     Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');

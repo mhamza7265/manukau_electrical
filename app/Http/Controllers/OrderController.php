@@ -48,7 +48,7 @@ class OrderController extends Controller
 
         $cart = Helper::getAllProductFromCart();
        
-        // dd($cart);
+        dd($request->all());
         $this->validate($request,[
             'first_name'=>'string|required',
             'last_name'=>'string|required',

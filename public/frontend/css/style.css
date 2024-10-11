@@ -5048,6 +5048,12 @@ nav[role="navigation"] > div:nth-child(2) {
 	padding-left: 30px;
 }
 
+#card-element {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
 
 @media (max-width:769px) {
 	.header-inner{
