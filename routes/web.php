@@ -77,7 +77,7 @@
     Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
     Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update');
 
-    Route::get('/cart', function () {return view('frontend.pages.cart');})->name('cart');
+    Route::get('/cart', function () {return view('frontend.pages.cart');})->name('cart')->middleware('user');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
 
 // Wishlist
@@ -90,7 +90,12 @@
     Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFilter'])->name('shop.filter');
 
     // order
+    Route::post('submit', [OrderController::class, 'submit'])->name('checkout.submit');
     Route::get('/charge', [PaymentController::class, 'index'])->name('checkout.index');
+    Route::post('charge/payment',  [PaymentController::class, 'paymentIntent'])->name('checkout.payment');
+    Route::get('payment-success', [FrontendController::class, 'paymentSuccess'])->name('payment.success');
+    Route::post('webhook/stripe', [PaymentController::class, 'handleWebhook'])->name('webhook.stripe');
+
     Route::post('cart/order', [OrderController::class, 'store'])->name('cart.order');
     Route::get('order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
     Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');

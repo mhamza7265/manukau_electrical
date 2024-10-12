@@ -1140,6 +1140,9 @@ Version:1.0
 .category-div{
 	display: none;
 }
+.dash{
+	display: none !important;
+}
 
 
 
@@ -1284,9 +1287,9 @@ Version:1.0
 .breadcrumbs {
 	padding: 20px 0;
 }
-.header.shop .topbar {
+/* .header.shop .topbar {
 	background: #fff;
-}
+} */
 .header.shop .topbar .top-left{
 	text-align:center;
 }

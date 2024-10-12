@@ -26,9 +26,18 @@
                 <div class="login-form">
                     <h4>Checkout</h4>
                     <div class="body mt-3">
-                        <form action="/charge" id="checkout-form" method="POST">
+                        <form action="{{route('checkout.payment')}}" id="checkout-form" method="POST">
                             @csrf
                             <input type='hidden' name='stripeToken' id='stripe-token-id'> 
+                            <input type="hidden" name="first_name" value="{{ old('first_name', $firstName) }}" required>
+                            <input type="hidden" name="last_name" value="{{ old('last_name', $lastName) }}" required>
+                            <input type="hidden" name="phone" value="{{ old('phone', $phone) }}" required>
+                            <input type="hidden" name="address1" value="{{ old('address1', $address1) }}" required>
+                            <input type="hidden" name="address2" value="{{ old('address2', $address2) }}" >
+                            <input type="hidden" name="post_code" value="{{ old('post_code', $postCode) }}">
+                            <input type="hidden" name="coupon" value="{{ old('coupon', $coupon) }}" >
+                            <input type="hidden" name="shipping" value="{{ old('shipping', $shipping) }}" required>
+                            <input type="hidden" name="payment_method" value="{{ old('payment_method', $paymentMethod) }}" required>
                             <div class="row">
                                 <div class="col-12">
                                     @php
@@ -45,12 +54,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    @php
+                                    {{-- @php
                                         $userEmail = Auth::user()->email;
-                                    @endphp
+                                    @endphp --}}
                                     <div class="form-group">
                                         <label for="email">Email:</label>
-                                        <input type="text" class="form-control py-2 px-3" value="{{$userEmail}}" name="email" id="email" readonly>
+                                        <input type="text" class="form-control py-2 px-3" value="{{ old('email', $email) }}" name="email" id="email" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -60,6 +69,8 @@
                                             <!-- A Stripe Element will be inserted here. -->
                                         </div>
                                     </div>
+                                    {{-- <span  id="card-errors" role="alert"></span> --}}
+
                                 </div>
 
                                 <!-- Used to display form errors. -->
@@ -79,6 +90,7 @@
 </section>
 @endsection
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -108,19 +120,59 @@
             
             $("#pay-btn").click(function(){
                 document.getElementById("pay-btn").disabled = true;
-                stripe.createToken(cardElement).then(function(result) {
-            
-                    if(typeof result.error != 'undefined') {
-                        document.getElementById("pay-btn").disabled = false;
-                        alert(result.error.message);
+                $('#pay-btn').text('PLEASE WAIT...');
+
+                $.ajax({
+                url: "{{route('checkout.payment')}}",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    amount: $('input[name="amount"]').val(),
+                    email: $('input[name="email"]').val()
+                }),
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    console.log('data', data);
+                    // Use the client_secret to confirm the card payment
+                    stripe.confirmCardPayment(data.client_secret, {
+                    payment_method: {
+                        card: cardElement // Assuming 'card' is defined and initialized elsewhere
                     }
-            
-                    /* creating token success */
-                    if(typeof result.token != 'undefined') {
-                        document.getElementById("stripe-token-id").value = result.token.id;
-                        document.getElementById('checkout-form').submit();
+                    }).then(function(result) {
+                    if (result.error) {
+                        // Show error to your customer (e.g., insufficient funds)
+                        $('#card-errors').text(result.error.message);
+                        swal.fire({
+                            title: "Error",
+                            text: result.error.message,
+                            icon: "error",
+                        })
+                        $('#pay-btn').prop('disabled', false);
+                        $('#pay-btn').text('SUBMIT PAYMENT');
+                    } else {
+                        if (result.paymentIntent.status === 'succeeded') {
+                        // Payment succeeded, redirect to success page
+
+                        window.location.href = '/payment-success';
+                        }
                     }
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Handle error response
+                    console.error('AJAX error:', textStatus, errorThrown);
+                    swal.fire({
+                        title: 'Oops',
+                        text: errorThrown,
+                        icon: "error",
+                    })
+                    $('#card-errors').text('An error occurred. Please try again.');
+                    $('#pay-btn').prop('disabled', false);
+                }
                 });
+
             })
         })
 	</script>

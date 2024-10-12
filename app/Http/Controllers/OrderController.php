@@ -37,6 +37,72 @@ class OrderController extends Controller
         //
     }
 
+    public function submit(Request $request)
+    {
+        // Check if user is logedin
+        if (!auth()->check()) {
+            request()->session()->flash('error', 'You must be logged in to access the cart.');
+            return redirect()->back();
+        }
+        
+        // Get the cart items
+        $cart = Helper::getAllProductFromCart();
+
+        // dd($request);
+        $this->validate($request,[
+            'first_name'=>'string|required',
+            'last_name'=>'string|required',
+            'address1'=>'string|required',
+            'address2'=>'string|nullable',
+            'coupon'=>'nullable|numeric',
+            'phone'=>'numeric|required',
+            'post_code'=>'string|nullable',
+            'email'=>'string|required',
+            'shipping' => 'required',
+            'payment_method' => 'required'
+        ]);
+        
+        if(empty(Cart::where('user_id', auth()->user()->id)->where('order_id', null)->first())){
+            request()->session()->flash('error','Cart is Empty !');
+            return redirect()->back();
+        }
+
+        foreach($cart as $item){
+            $product = Product::find($item->product_id);
+
+    
+            // Check if the product exists
+            if (!$product) {
+                request()->session()->flash('error', "Product not found for ID: {$item->product_id}");
+                return redirect()->back();
+            }
+
+            // Check for sufficient quantity
+            if($product->stock < $item->quantity){
+                request()->session()->flash('error', "Required quantity of {$product->title} is not available");
+                return redirect()->back();
+            }
+        }
+
+        // Store the data in the session
+        session([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address1' => $request->address1,
+            'address2' => $request->address2,
+            'country' => $request->country,
+            'post_code' => $request->post_code,
+            'coupon' => $request->coupon,
+            'shipping' => $request->shipping,
+            'payment_method' => $request->payment_method
+        ]);
+
+        // Redirect to the next form
+        return redirect()->route('checkout.index');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -182,7 +182,7 @@ Version:1.0
 	font-weight: 500;
 	font-size:14px;
 	color: #fff;
-	background: #333;
+	background: #DB9C3D !important;
 	display: inline-block;
 	-webkit-transition: all 0.4s ease;
 	-moz-transition: all 0.4s ease;
@@ -195,7 +195,7 @@ Version:1.0
 }
 .btn:hover{
 	color:#fff;
-	background:#F7941D;
+	background:#F7941D !important;
 }
 #scrollUp {
 	right: 10px;
@@ -2574,7 +2574,7 @@ Version:1.0
 	height: 45px;
 	line-height: 45px;
 	border-radius: 0px;
-	background: transparent;
+	/* background: transparent; */
 	color: #282828;
 	font-size: 12px;
 	border: none;

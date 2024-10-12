@@ -39,7 +39,11 @@
 						<tbody id="cart_item_list">
 							<form action="{{route('cart.update')}}" method="POST">
 								@csrf
-								@if(Helper::getAllProductFromCart())
+								@php
+									$cartItems = Helper::getAllProductFromCart();
+									// echo count($cartItems);
+								@endphp
+								@if(isset($cartItems) && count($cartItems) > 0)
 									@foreach(Helper::getAllProductFromCart() as $key=>$cart)
 										<tr>
 											@php
@@ -82,7 +86,7 @@
 								@else
 										<tr>
 											<td class="text-center">
-												There are no any carts available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+												Cart is empty! <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
 
 											</td>
 										</tr>

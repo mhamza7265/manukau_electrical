@@ -457,5 +457,10 @@ class FrontendController extends Controller
                 return back();
             }
     }
+
+    public function paymentSuccess()
+    {
+        return view('frontend.pages.payment-success');
+    }
     
 }
