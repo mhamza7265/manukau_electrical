@@ -40,9 +40,11 @@ class AdminController extends Controller
         $data=$request->all();
         $status=$user->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated your profile');
+            toast('Profile updated successfully!', 'success');
+            request()->session()->flash('success','Profile updated successfully!');
         }
         else{
+            toast('Failed to update profile!', 'error');
             request()->session()->flash('error','Please try again!');
         }
         return redirect()->back();
@@ -70,9 +72,11 @@ class AdminController extends Controller
         // return $settings;
         $status=$settings->fill($data)->save();
         if($status){
+            toast('Settings updated successfully!', 'success');
             request()->session()->flash('success','Setting successfully updated');
         }
         else{
+            toast('Failed to update settings!', 'error');
             request()->session()->flash('error','Please try again');
         }
         return redirect()->route('admin');

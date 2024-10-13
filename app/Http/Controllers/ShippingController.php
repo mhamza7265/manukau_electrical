@@ -46,10 +46,10 @@ class ShippingController extends Controller
         // return $data;
         $status=Shipping::create($data);
         if($status){
-            request()->session()->flash('success','Shipping successfully created');
+            toast('Shipping created successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            toast('Shipping creation failed!','error');
         }
         return redirect()->route('shipping.index');
     }
@@ -75,7 +75,7 @@ class ShippingController extends Controller
     {
         $shipping=Shipping::find($id);
         if(!$shipping){
-            request()->session()->flash('error','Shipping not found');
+            toast('Shipping not found!','error');
         }
         return view('backend.shipping.edit')->with('shipping',$shipping);
     }
@@ -99,10 +99,10 @@ class ShippingController extends Controller
         // return $data;
         $status=$shipping->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Shipping successfully updated');
+            toast('Shipping updated successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            toast('Shipping update failed!','error');
         }
         return redirect()->route('shipping.index');
     }
@@ -119,15 +119,15 @@ class ShippingController extends Controller
         if($shipping){
             $status=$shipping->delete();
             if($status){
-                request()->session()->flash('success','Shipping successfully deleted');
+                toast('Shipping deleted successfully!','success');
             }
             else{
-                request()->session()->flash('error','Error, Please try again');
+                toast('Shipping delete failed!','error');
             }
             return redirect()->route('shipping.index');
         }
         else{
-            request()->session()->flash('error','Shipping not found');
+            toast('Shipping not found!','error');
             return redirect()->back();
         }
     }

@@ -13,6 +13,7 @@ use Notification;
 use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class OrderController extends Controller
 {
@@ -253,7 +254,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order=Order::find($id);
+        $order = Order::with('cart')->find($id);
         // return $order;
         return view('backend.order.show')->with('order',$order);
     }
@@ -369,7 +370,7 @@ class OrderController extends Controller
         // return $order;
         $file_name=$order->order_number.'-'.$order->first_name.'.pdf';
         // return $file_name;
-        $pdf=PDF::loadview('backend.order.pdf',compact('order'));
+        $pdf = PDF::loadview('backend.order.pdf',compact('order'));
         return $pdf->download($file_name);
     }
     // Income chart

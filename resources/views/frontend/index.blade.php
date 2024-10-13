@@ -42,7 +42,9 @@
         <!-- categories list -->
         <div class="col-lg-3 category-div">
             <div class="accordion" id="accordionExample">
-                <h5 class="my-3 text-center">Categories</h5>
+                <div class="accordion-title">
+                    <h5 class="my-3 text-center">Categories</h5>
+                </div>
                 @foreach($categories as $cat)
                     @if (count($cat->subCategories) > 0)
                         <div class="card">
@@ -104,101 +106,84 @@
         <!-- Start Product Area -->
         <div class="product-area section pt-0 col-9 mx-auto">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <h2>Featured Products</h2>
-                            </div>
+                    @php
+                        $featured_products_lists=DB::table('products')->where('status','active')->where('is_featured', 1)->orderBy('id','DESC')->limit(6)->get();
+                    @endphp
+                    @if($featured_products_lists)
+                        <div class="section-title">
+                            <h2>Featured Products</h2>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="product-info">
-                                <div class="nav-main">
-                                    <!-- Tab Nav -->
-                                    <ul class="nav nav-tabs filter-tope-group" id="myTab" role="tablist">
-                                        @php
-                                            $categories=DB::table('categories')->where('status','active')->where('is_parent',1)->get();
-                                            // dd($categories);
-                                        @endphp
-                                        @if($categories)
-                                        {{-- <button class="btn" style="background:black"data-filter="*">
-                                            All Products
-                                        </button> --}}
-                                            {{-- @foreach($categories as $key=>$cat)
-
-                                            <button class="btn" style="background:none;color:black;"data-filter=".{{$cat->id}}">
-                                                {{$cat->title}}
-                                            </button>
-                                            @endforeach --}}
+                        <div class="featured">
+                            @foreach($featured_products_lists as $key=>$product)
+                            <div class="featured-products {{$product->cat_id}} mt-4">
+                                <div class="single-product">
+                                    @if (auth()->user())
+                                        @if($product->stock<=0)
+                                            <span class="out-of-stock">Sale out</span>
+                                        @elseif($product->condition=='new')
+                                            <span class="new">New</span>
+                                        @elseif($product->condition=='hot')
+                                            <span class="hot">Hot</span>
+                                        @else
+                                            <span class="price-dec">{{$product->discount}}% Off</span>
                                         @endif
-                                    </ul>
-                                    <!--/ End Tab Nav -->
-                                </div>
-                                <div class="tab-content isotope-grid" id="myTabContent">
-                                    @php
-                                        $featured_products_lists=DB::table('products')->where('status','active')->where('is_featured', 1)->orderBy('id','DESC')->limit(6)->get();
-                                    @endphp
-                                    <!-- Start Single Tab -->
-                                    @if($featured_products_lists)
-                                        <div class="featured">
-                                            @foreach($featured_products_lists as $key=>$product)
-                                            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 featured-products isotope-item {{$product->cat_id}} mt-4">
-                                                <div class="single-product">
-                                                    <div class="product-img">
-                                                        <a href="{{route('product-detail',$product->slug)}}">
-                                                            @php
-                                                                $photo=explode(',',$product->photo);
-                                                            // dd($photo);
-                                                            @endphp
-                                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                                            @if($product->stock<=0)
-                                                                <span class="out-of-stock">Sale out</span>
-                                                            @elseif($product->condition=='new')
-                                                                <span class="new">New</span
-                                                            @elseif($product->condition=='hot')
-                                                                <span class="hot">Hot</span>
-                                                            @else
-                                                                <span class="price-dec">{{$product->discount}}% Off</span>
-                                                            @endif
-
-
-                                                        </a>
-                                                        <div class="button-head">
-                                                            <div class="product-action">
-                                                                <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                                <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                            </div>
-                                                            <div class="product-action-2">
-                                                                <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-                                                        <div class="product-price">
-                                                            @php
-                                                                $after_discount=($product->price-($product->price*$product->discount)/100);
-                                                            @endphp
-                                                            <span>${{number_format($after_discount,2)}}</span>
-                                                            <del style="padding-left:4%;">${{number_format($product->price,2)}}</del>
-                                                        </div>
-                                                    </div>
+                                    @endif
+                                    
+                                    <div class="product-img">
+                                        <a href="{{route('product-detail',$product->slug)}}">
+                                            @php
+                                                $photo=explode(',',$product->photo);
+                                            // dd($photo);
+                                            @endphp
+                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                                            {{-- <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}"> --}}
+                                        </a>
+                                        @if (auth()->user())
+                                            <div class="button-head">
+                                                <div class="product-action">
+                                                    {{-- <a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a> --}}
+                                                    <a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" ><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
                                                 </div>
                                             </div>
-                                            @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="product-title">
+                                        <h5 class="mt-3"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
+                                    </div>
+                                    <div class="category">
+                                        @php
+                                           $catId = $product->cat_id;
+                                           $category = \App\Models\Category::find($catId); 
+                                        @endphp
+                                        @if (isset($category))
+                                            <p style="color: gray; font-size: 12px; margin-top: 5px"><a href="{{route('products',  $category->slug)}}">{{$category->title}}</a></p>
+                                        @endif
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        @if (auth()->user())
+                                            <div class="product-content">
+                                                <div class="product-price d-flex">
+                                                    @php
+                                                        $after_discount=($product->price-($product->price*$product->discount)/100);
+                                                    @endphp
+                                                    <span>${{number_format($after_discount,2)}}</span>
+                                                    <del style="padding-left:4%; font-size: 13px; font-weight: 600; color: gray;">${{number_format($product->price,2)}}</del>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="product-action-2">
+                                            @if (auth()->user())
+                                                <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
+                                            @else
+                                                <a title="price enquiry" href="javascript:void(0)">Price Enquiry</a>
+                                            @endif
                                         </div>
-
-                                    <!--/ End Single Tab -->
-                                    @endif
-
-                                <!--/ End Single Tab -->
-
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                    </div>
+                    @endif
                 </div>
         </div>
         <!-- End Product Area -->
@@ -320,13 +305,18 @@
                                                 // dd($photo);
                                             @endphp
                                             <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                            @if (auth()->user())
+                                                <a href="{{route('add-to-cart',$product->slug)}}" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12 no-padding">
                                         <div class="content">
                                             <h4 class="title"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h4>
-                                            <p class="price with-discount">${{number_format($product->discount,2)}}</p>
+                                            @if (auth()->user())
+                                                <p class="price with-discount">${{number_format($product->discount,2)}}</p>
+                                            @endif
                                         </div>
                                     </div>
                                     </div>

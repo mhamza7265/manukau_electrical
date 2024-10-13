@@ -31,7 +31,7 @@
                         <div class="col-lg-8 col-12">
                             <div class="checkout-form">
                                 <h2>Make Your Checkout Here</h2>
-                                <p>Please register in order to checkout more quickly</p>
+                                {{-- <p>Please register in order to checkout more quickly</p> --}}
                                 <!-- Form -->
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
@@ -358,7 +358,7 @@
                             <div class="order-details">
                                 <!-- Order Widget -->
                                 <div class="single-widget">
-                                    <h2>CART  TOTALS</h2>
+                                    <h2>TOTAL</h2>
                                     <div class="content">
                                         <ul>
 										    <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
@@ -366,7 +366,7 @@
                                                 Shipping Cost
                                                 @if(count(Helper::shipping())>0 && Helper::cartCount()>0)
                                                     <select name="shipping" class="nice-select mt-3" required>
-                                                        <option value="">Select your address</option>
+                                                        <option value="">Select Area</option>
                                                         @foreach(Helper::shipping() as $shipping)
                                                         <option value="{{$shipping->id}}" class="shippingOption" data-price="{{$shipping->price}}">{{$shipping->type}}: ${{$shipping->price}}</option>
                                                         @endforeach
@@ -399,13 +399,14 @@
                                 <!--/ End Order Widget -->
                                 <!-- Order Widget -->
                                 <div class="single-widget">
-                                    <h2>Payments</h2>
+                                    <h2>Payment Method</h2>
                                     <div class="content">
                                         <div class="checkbox">
                                             {{-- <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label> --}}
                                             <form-group>
-                                                <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
-                                                <input name="payment_method"  type="radio" value="card"> <label> Card</label> 
+                                                {{-- <input name="payment_method"  type="radio" value="cod"> <label> Cash On Delivery</label><br>
+                                                <input name="payment_method"  type="radio" value="card"> <label> Card</label>  --}}
+                                                <input name="payment_method"  type="radio" value="credit/debit_card" checked> <label>Card</label>
                                             </form-group>
                                             
                                         </div>

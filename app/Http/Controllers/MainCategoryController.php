@@ -94,6 +94,21 @@ class MainCategoryController extends Controller
      */
     public function destroy(MainCategory $mainCategory)
     {
-        //
+        // dd($mainCategory->subCategories);
+        $subCategories = $mainCategory->subCategories;
+        if(count($subCategories) > 0){
+            toast('You cannot delete this main category because it has associated categories!','error');
+            return redirect()->route('main-category.index');
+        }
+
+        $status = $mainCategory->delete();
+        
+        if($status){
+            toast('Category successfully deleted','success');
+        }
+        else{
+            toast('Error while deleting category','error');
+        }
+        return redirect()->route('main-category.index');
     }
 }

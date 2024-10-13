@@ -16,6 +16,7 @@
     use App\Http\Controllers\NotificationController;
     use App\Http\Controllers\HomeController;
     use App\Http\Controllers\PaymentController;
+    use App\Http\Controllers\UsersController;
     use \UniSharp\LaravelFilemanager\Lfm;
 
     /*
@@ -91,7 +92,7 @@
 
     // order
     Route::post('submit', [OrderController::class, 'submit'])->name('checkout.submit');
-    Route::get('/charge', [PaymentController::class, 'index'])->name('checkout.index');
+    Route::get('/charge', [PaymentController::class, 'index'])->name('checkout.index')->middleware('checkCart');
     Route::post('charge/payment',  [PaymentController::class, 'paymentIntent'])->name('checkout.payment');
     Route::get('payment-success', [FrontendController::class, 'paymentSuccess'])->name('payment.success');
     Route::post('webhook/stripe', [PaymentController::class, 'handleWebhook'])->name('webhook.stripe');
@@ -145,6 +146,7 @@
         })->name('file-manager');
         // user route
         Route::resource('users', 'UsersController');
+        Route::patch('users/status/update/{id}', [UsersController::class, 'usersStatusUpdate'])->name('users.status.update');
         // Banner
         Route::resource('banner', 'BannerController');
         // Brand

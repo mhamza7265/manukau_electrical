@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
-
+use App\Models\Cart;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -82,10 +82,10 @@ class ProductController extends Controller
         // return $data;
         $status=Product::create($data);
         if($status){
-            request()->session()->flash('success','Product Successfully added');
+            toast('Product successfully Added','success');
         }
         else{
-            request()->session()->flash('error','Please try again!!');
+            toast('Please try again!','error');
         }
         return redirect()->route('product.index');
 
@@ -159,10 +159,10 @@ class ProductController extends Controller
         // return $data;
         $status=$product->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Product Successfully updated');
+            toast('Product Successfully updated','success');
         }
         else{
-            request()->session()->flash('error','Please try again!!');
+            toast('Please try again!','error');
         }
         return redirect()->route('product.index');
     }
@@ -175,14 +175,21 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product=Product::findOrFail($id);
-        $status=$product->delete();
+        $product = Product::findOrFail($id);
+        $cartAvailable = Cart::where('order_id', null)->where("product_id", $id)->get();
+        // dd($cartAvailable);
+        if($cartAvailable && count($cartAvailable) > 0){
+            toast('Product is in cart, cannot delete!','error');
+            return redirect()->route('product.index');
+        }
+
+        $status = $product->delete();
         
         if($status){
-            request()->session()->flash('success','Product successfully deleted');
+            toast('Product Successfully deleted','success');
         }
         else{
-            request()->session()->flash('error','Error while deleting product');
+            toast('Please try again!','error');
         }
         return redirect()->route('product.index');
     }

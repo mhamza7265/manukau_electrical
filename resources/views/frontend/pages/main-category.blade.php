@@ -25,7 +25,9 @@
         <!-- categories list -->
         <div class="col-lg-3 category-div">
             <div class="accordion" id="accordionExample">
-                <h5 class="my-3 text-center">Categories</h5>
+                <div class="accordion-title">
+                    <h5 class="my-3 text-center">Categories</h5>
+                </div>
                 @foreach($categories as $cat)
                     @if (count($cat->subCategories) > 0)
                         <div class="card">
@@ -58,7 +60,7 @@
                         <div class="card text-black">
                             <div class="image-div">
                                 @if($cat->photo)
-                                    <img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}">
+                                    <a href="{{route('sub-categories', $cat->id)}}"><img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}"></a>
                                 @else
                                     <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="card-img-top" style="max-width:80px" alt="avatar.png">
                                 @endif

@@ -8,7 +8,7 @@
       <form method="post" action="{{route('shipping.store')}}">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Type <span class="text-danger">*</span></label>
+          <label for="inputTitle" class="col-form-label">Name <span class="text-danger">*</span></label>
         <input id="inputTitle" type="text" name="type" placeholder="Enter title"  value="{{old('type')}}" class="form-control">
         @error('type')
         <span class="text-danger">{{$message}}</span>

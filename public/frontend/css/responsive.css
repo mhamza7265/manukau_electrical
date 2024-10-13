@@ -434,8 +434,16 @@ Version:1.0
 	color: #fff;
 }
 .slicknav_menu .slicknav_nav{
-	background-color: rgb(219, 156, 61);
+	background-color: #0F0957;
 	padding: 10px 25px;
+}
+.slicknav_menu .slicknav_nav li{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.slicknav_menu .slicknav_nav li a{
+	color: #fff;
 }
 .slicknav_nav .slicknav_row, .slicknav_nav a {
 	padding: 0;
@@ -766,6 +774,7 @@ Version:1.0
 	font-weight: 500;
 	margin-top: 0;
 	line-height: 24px;
+	text-align: center;
 }
 .shop.single .product-des {
 	margin-top: 20px;
@@ -776,12 +785,32 @@ Version:1.0
 .shop.single .product-des .price {
 	font-size: 17px;
 	margin-top: 10px;
+	text-align: center;
 }
 .shop.single .product-des .short .description {
 	font-size: 14px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding-bottom: 11px;
+	text-align: center;
+}
+
+.shop.single .quantity {
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shop.single .add-to-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shop.single .cat {
+    text-align: center;
+}
+.shop.single .availability {
+    text-align: center;
 }
 .shop.single .product-des .color h4 {
 	font-size: 15px;
@@ -963,9 +992,11 @@ Version:1.0
 	width: 50%;
 	height: 100%;
 	border-bottom: 1px solid #e6ebee;
-	background: #F7941D;
-	color: #fff;
+	color: #000;
 	border: none;
+}
+.shopping-cart tbody .qty .input-group {
+    width: 130px;
 }
 .shopping-cart .table td {
 	vertical-align: middle;
@@ -1013,7 +1044,22 @@ Version:1.0
 .shop-list .list-content {
 	margin-top: 30px;
 }
-.shop-list .list-content .btn {
+.shop-list .list-content .product-price span, .shop-list .list-content .product-price del{
+	text-align: center;
+	display: block;
+}
+.shop-list .list-content .title {
+    text-align:center;
+}
+.shop-list .list-content .des {
+	text-align: center;
+}
+.shop-list .list-content .buy-now{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.shop-list .list-content .buy-now .btn {
 	height: auto;
 	line-height: auto;
 	padding: 12px 32px;
@@ -1143,7 +1189,67 @@ Version:1.0
 .dash{
 	display: none !important;
 }
+.footer .about .logo {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
+.footer .about .logo img{
+	max-width: 180px;
+}
+.footer .about .text {
+    text-align: center;
+}
+.footer p{
+	text-align: center;
+}
+.footer .links h4,  .footer .social h4{
+	text-align: center;
+}
+.footer .links ul li,  .footer .social ul li{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.header.shop .topbar {
+    background-color: #0F0957;
+    border: none;
+}
+
+.header.shop .middle-inner {
+    padding: 20px 0;
+    background: #DB9C3D;
+    border-top: 1px solid #504c7e;
+}
+.slicknav_icon-bar{
+	background-color: #0F0957;
+}
+.featured-products.grid-list {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.shop .shop-top {
+    padding: 12px !important;
+}
+.shop .shop-shorter {
+    float: none !important;
+}
+.shop .view-mode {
+    float: none !important;
+}
+.related-product .single-product .product-content h3 {
+    text-align: center;
+}
+
+.related-product .single-product .product-content .product-price {
+    display: flex;
+    justify-content: center;
+	align-items: center;
+}
 
 
 }
@@ -1230,7 +1336,7 @@ Version:1.0
 	padding-bottom:0px;
 }
 .slicknav_menu .slicknav_icon-bar {
-	background-color: #F7941D;
+	background-color: #0F0957;
 	box-shadow: none;
 	text-shadow: none;
 }
@@ -1542,10 +1648,9 @@ Version:1.0
 	margin-top: 4px;
 }
 .shop .view-mode {
-	float: right;
-	float: none;
-	display: block;
-	width: 100%;
+	display: flex;
+	justify-content: left;
+	align-items: center;
 }
 .shop .view-mode li {
 	display: inline-block;

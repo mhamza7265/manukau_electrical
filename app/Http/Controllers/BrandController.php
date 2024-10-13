@@ -49,10 +49,10 @@ class BrandController extends Controller
         // return $data;
         $status=Brand::create($data);
         if($status){
-            request()->session()->flash('success','Brand successfully created');
+            toast('Brand created successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            toast('Error creating brand!','error');
         }
         return redirect()->route('brand.index');
     }
@@ -76,8 +76,10 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $brand=Brand::find($id);
+        $brand = Brand::find($id);
+
         if(!$brand){
+            toast('Brand not found!','error');
             request()->session()->flash('error','Brand not found');
         }
         return view('backend.brand.edit')->with('brand',$brand);
@@ -101,10 +103,10 @@ class BrandController extends Controller
        
         $status=$brand->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Brand successfully updated');
+            toast('Brand updated successfully!','success');
         }
         else{
-            request()->session()->flash('error','Error, Please try again');
+            toast('Failed to update brand!','error');
         }
         return redirect()->route('brand.index');
     }
@@ -117,19 +119,25 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $brand=Brand::find($id);
+        $brand = Brand::with('products')->find($id);
+
+        if($brand &&  $brand->products->count() > 0){
+            toast('Brand has products, cannot be deleted!','error');
+            return redirect()->route('brand.index');
+        }
+
         if($brand){
             $status=$brand->delete();
             if($status){
-                request()->session()->flash('success','Brand successfully deleted');
+                toast('Brand deleted successfully!','success');
             }
             else{
-                request()->session()->flash('error','Error, Please try again');
+                toast('Failed to delete brand!','error');
             }
             return redirect()->route('brand.index');
         }
         else{
-            request()->session()->flash('error','Brand not found');
+            toast('Brand not found!','error');
             return redirect()->back();
         }
     }

@@ -139,19 +139,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category=Category::findOrFail($id);
+        $category = Category::with('products')->findOrFail($id);
         $child_cat_id=Category::where('parent_id',$id)->pluck('id');
-        // return $child_cat_id;
+        if($category && count($category->products) > 0){
+            toast('Category has products, cannot be deleted!','error');
+            return redirect()->route('category.index');
+        }
+
         $status=$category->delete();
         
         if($status){
             if(count($child_cat_id)>0){
                 Category::shiftChild($child_cat_id);
             }
-            request()->session()->flash('success','Category successfully deleted');
+            toast('Category successfully deleted','success');
         }
         else{
-            request()->session()->flash('error','Error while deleting category');
+            toast('Error while deleting category','error');
         }
         return redirect()->route('category.index');
     }

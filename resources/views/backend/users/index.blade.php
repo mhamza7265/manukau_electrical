@@ -63,11 +63,16 @@
                     </td>
                     <td>
                         <a href="{{route('users.edit',$user->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                    <form method="POST" action="{{route('users.destroy',[$user->id])}}">
-                      @csrf 
-                      @method('delete')
-                          <button class="btn btn-danger btn-sm dltBtn" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                        </form>
+                      <form method="POST" action="{{route('users.status.update',[$user->id])}}">
+                        @csrf 
+                        @method('PATCH')
+                        @if ($user->status == 'active')
+                          <button class="btn btn-danger btn-sm userStatus deactivate" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Deactivate">Deactivate</button>
+                        @else
+                          <button class="btn btn-danger btn-sm userStatus activate" data-id={{$user->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Activate">Activate</button>
+                        @endif
+                        
+                      </form>
                     </td>
                     {{-- Delete Modal --}}
                     {{-- <div class="modal fade" id="delModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="#delModal{{$user->id}}Label" aria-hidden="true">
@@ -142,14 +147,37 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-          $('.dltBtn').click(function(e){
-            var form=$(this).closest('form');
-              var dataID=$(this).data('id');
+        $('.dltBtn').click(function(e){
+          var form=$(this).closest('form');
+            var dataID=$(this).data('id');
+            // alert(dataID);
+            e.preventDefault();
+            swal({
+                  title: "Are you sure?",
+                  text: "Once deleted, you will not be able to recover this data!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+              })
+              .then((willDelete) => {
+                  if (willDelete) {
+                      form.submit();
+                  } else {
+                      swal("Your data is safe!");
+                  }
+              });
+        })
+
+        $('.userStatus').click(function(e){
+            var form = $(this).closest('form');
+              var dataID = $(this).data('id');
+              var activate = $(this).hasClass('activate');
               // alert(dataID);
               e.preventDefault();
               swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    text: activate ? "Do you want to activate this user?"  :  "Do you want to deactivate this user?",
+
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

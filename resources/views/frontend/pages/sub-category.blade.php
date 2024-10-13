@@ -12,6 +12,7 @@
                 <div class="bread-inner">
                     <ul class="bread-list">
                         <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
+                        <li><a href="{{route('categories')}}">Categories<i class="ti-arrow-right"></i></a></li>
                         <li class="active"><a href="javascript:void(0);">Sub Categories</a></li>
                     </ul>
                 </div>
@@ -58,7 +59,7 @@
                         <div class="card text-black">
                             <div class="image-div">
                                 @if($cat->photo)
-                                    <img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}">
+                                    <a href="{{route('products', $cat->slug)}}"><img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}"></a>
                                 @else
                                     <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="card-img-top" style="max-width:80px" alt="avatar.png">
                                 @endif
