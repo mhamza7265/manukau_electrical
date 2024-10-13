@@ -42,9 +42,9 @@
     margin-top: -10px;
     color: green;
   }
-  .thanks h4 {
+  .thanks h5 {
     color: green;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: normal;
     font-family: serif;
     margin-top: 20px;
@@ -115,6 +115,7 @@
           <th scope="col" class="col-6">Product</th>
           <th scope="col" class="col-3">Quantity</th>
           <th scope="col" class="col-3">Total</th>
+          <th scope="col" class="col-3">Payment Status</th>
         </tr>
       </thead>
       <tbody>
@@ -130,6 +131,7 @@
             </span></td>
           <td>x{{$cart->quantity}}</td>
           <td><span>${{number_format($cart->price,2)}}</span></td>
+          <td>{{$order->payment_status}}</td>
         </tr>
       @endforeach
       </tbody>
@@ -167,7 +169,7 @@
     </table>
   </section>
   <div class="thanks mt-3">
-    <h4>Thank you for your business !!</h4>
+    <h5>Thank you for your purchase!</h5>
   </div>
   <div class="authority float-right mt-5">
     <p>-----------------------------------</p>

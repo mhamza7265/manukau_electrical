@@ -184,7 +184,7 @@
                                                         @if (auth()->user())
                                                             <a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
                                                         @else
-                                                            <a title="price enquiry" href="javascript:void(0)">Price Enquiry</a>
+                                                            <a title="price enquiry" href="{{route('price-enquiry', $product->id)}}">Product Enquiry</a>
                                                         @endif
                                                     </div>
                                                 </div>

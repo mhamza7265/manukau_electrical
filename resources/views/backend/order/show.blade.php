@@ -4,7 +4,8 @@
 
 @section('main-content')
 <div class="card">
-<h5 class="card-header">Order       <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
+  <h5 class="card-header">Order       
+    <a href="{{route('order.pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
   </h5>
   <div class="card-body">
     @if($order)
@@ -29,7 +30,7 @@
             <td>{{$order->order_number}}</td>
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
-            <td>${{$order->shipping->price}}</td>
+            <td>${{isset($order->shipping) ? $order->shipping->price : null}}</td>
             <td>${{number_format($order->total_amount,2)}}</td>
             <td>{{$order->payment_status}}</td>
             <td>{{$order->stripe_payment_id}}</td>
@@ -46,11 +47,11 @@
             </td>
             <td>
                 <a href="{{route('order.edit',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                <form method="POST" action="{{route('order.destroy',[$order->id])}}">
+                {{-- <form method="POST" action="{{route('order.destroy',[$order->id])}}">
                   @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                </form>
+                </form> --}}
             </td>
 
         </tr>
@@ -84,6 +85,7 @@
                             $product = $cart->product()->first();
                           @endphp
                           <span>{{$product->title .'  '. '*' .'  '. $cart->quantity . 'No.'}}</span>
+                          <br>
                         @endforeach
                       </td>
                     </tr>
@@ -93,7 +95,7 @@
                     </tr>
                     <tr>
                         <td>Shipping Charge</td>
-                        <td> : $ {{$order->shipping->price}}</td>
+                        <td> : $ {{isset($order->shipping) ? $order->shipping->price : null}}</td>
                     </tr>
                     <tr>
                       <td>Coupon</td>

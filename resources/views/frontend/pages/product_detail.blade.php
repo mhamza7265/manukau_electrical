@@ -148,7 +148,7 @@
 													</form>
 												@else
 													<div class="add-to-cart mt-4">
-														<a href="javascript:void(0)" class="btn">Price Enquiry</a>
+														<a href="{{route('price-enquiry', $product_detail->id)}}" class="btn">Product Enquiry</a>
 													</div>
 												@endif
 												
@@ -161,7 +161,9 @@
 												@if($product_detail->sub_cat_info)
 												<p class="cat mt-1">Sub Category :<a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a></p>
 												@endif
-												<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
+												@if (auth()->user())
+													<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
+												@endif
 											</div>
 											<!--/ End Product Buy -->
 										</div>
@@ -338,7 +340,7 @@
 											@if (auth()->user())
 												<span class="price-dec">{{$data->discount}} % Off</span>
 											@endif
-                                                                    {{-- <span class="out-of-stock">Hot</span> --}}
+                                            {{-- <span class="out-of-stock">Hot</span> --}}
                                         </a>
                                         <div class="button-head">
                                             {{-- <div class="product-action">

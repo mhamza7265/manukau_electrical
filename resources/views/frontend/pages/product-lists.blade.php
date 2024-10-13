@@ -183,7 +183,7 @@
 															@if (auth()->user())
 																<a href="{{route('add-to-cart',$product->slug)}}" class="btn cart" data-id="{{$product->id}}">Buy Now!</a>
 															@else
-																<a href="javascript:void(0)" class="btn cart" data-id="{{$product->id}}">Price Enquiry</a>
+																<a href="{{route('price-enquiry', $product->id)}}" class="btn cart" data-id="{{$product->id}}">Product Enquiry</a>
 															@endif
 															
 														</div>

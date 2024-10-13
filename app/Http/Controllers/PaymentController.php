@@ -166,7 +166,7 @@ class PaymentController extends Controller
         // Retrieve the raw request payload
         $payload = $request->getContent();
         $sigHeader = $request->header('Stripe-Signature');
-        $webhookSecret =  'whsec_3JW00dI8NscntcOOG6wi2atwOc3SAptR'; //env('STRIPE_WEBHOOK_SECRET');  // Optional for verifying webhook
+        $webhookSecret =  env('STRIPE_WEBHOOK_SECRET');  // Optional for verifying webhook
 
         // Verify webhook signature (optional but recommended for security)
         try {
@@ -230,7 +230,7 @@ class PaymentController extends Controller
         Mail::to($order->user->email)->send(new OrderConfirmationMail($order));
 
         // Send email to the admin
-        Mail::to('m.hamza7265@gmail.com')->send(new OrderAdminNotificationMail($order));
+        Mail::to(env('ADMIN_EMAIL_ID'))->send(new OrderAdminNotificationMail($order));
 
         return response()->json(['status' => 'success'], 200);  // Respond with 200 OK
     }

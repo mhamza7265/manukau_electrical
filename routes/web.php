@@ -17,6 +17,7 @@
     use App\Http\Controllers\HomeController;
     use App\Http\Controllers\PaymentController;
     use App\Http\Controllers\UsersController;
+    use App\Http\Controllers\EnquiryController;
     use \UniSharp\LaravelFilemanager\Lfm;
 
     /*
@@ -89,6 +90,12 @@
     Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
     Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');
     Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFilter'])->name('shop.filter');
+
+// Price Enquiry
+    Route::get('product-enquiry/{id}', [EnquiryController::class,  'index'])->name('price-enquiry');
+    Route::post('product-enquiry', [EnquiryController::class, 'submit'])->name('price-enquiry.submit');
+
+
 
     // order
     Route::post('submit', [OrderController::class, 'submit'])->name('checkout.submit');

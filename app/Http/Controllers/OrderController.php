@@ -8,12 +8,12 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shipping;
 use App\User;
-use PDF;
+use \PDF;
 use Notification;
 use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+// use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -365,14 +365,17 @@ class OrderController extends Controller
     }
 
     // PDF generate
-    public function pdf(Request $request){
-        $order=Order::getAllOrder($request->id);
+    public function pdf(Request $request, $id){
+        
+        $order = Order::getAllOrder($request->id);
         // return $order;
-        $file_name=$order->order_number.'-'.$order->first_name.'.pdf';
+        $file_name = $order->order_number.'-'.$order->first_name.'.pdf';
         // return $file_name;
+        // dd($file_name);
         $pdf = PDF::loadview('backend.order.pdf',compact('order'));
         return $pdf->download($file_name);
     }
+
     // Income chart
     public function incomeChart(Request $request){
         $year=\Carbon\Carbon::now()->year;

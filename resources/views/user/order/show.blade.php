@@ -18,9 +18,8 @@
             <th>Shipping Charges</th>
             <th>Total Amount</th>
             <th>Payment status</th>
-            <th>Stripe Payment ID</th>
             <th>Status</th>
-            <th>Action</th>
+            {{-- <th>Action</th> --}}
         </tr>
       </thead>
       <tbody>
@@ -32,7 +31,6 @@
             <td>${{$order->shipping->price}}</td>
             <td>${{number_format($order->total_amount,2)}}</td>
             <td>{{$order->payment_status}}</td>
-            <td>{{$order->stripe_payment_id}}</td>
             <td>
                 @if($order->status=='new')
                   <span class="badge badge-primary">{{$order->status}}</span>
@@ -44,13 +42,13 @@
                   <span class="badge badge-danger">{{$order->status}}</span>
                 @endif
             </td>
-            <td>
+            {{-- <td>
                 <form method="POST" action="{{route('order.destroy',[$order->id])}}">
                   @csrf
                   @method('delete')
                       <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                 </form>
-            </td>
+            </td> --}}
 
         </tr>
       </tbody>
