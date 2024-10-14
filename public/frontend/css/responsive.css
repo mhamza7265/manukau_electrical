@@ -1289,6 +1289,10 @@ Version:1.0
 	margin-right: 0 !important;
 }
 
+.header.shop .list-main-auth li a:hover {
+    color: #fff !important;
+}
+
 .footer .about .text {
     font-size: 11px;
 	padding: 0px 35px;
