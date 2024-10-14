@@ -92,7 +92,7 @@
                     </div>
                     <!-- categories list end -->
                     <div class="col-lg-9 col-md-8 col-12">
-                        <div class="row">
+                        <div class="row mobile-none">
                             <div class="col-12">
                                 <!-- Shop Top -->
                                 <div class="shop-top">
@@ -200,10 +200,10 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-12 justify-content-center d-flex">
+                            <div class="col-md-12 justify-content-end d-flex">
                                 {{$products->links()}}
                             </div>
-                          </div>
+                        </div>
 
                     </div>
                 </div>

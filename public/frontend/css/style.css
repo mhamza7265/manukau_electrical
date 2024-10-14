@@ -1853,6 +1853,9 @@ Version:1.0
 	line-height: 25px;
 	z-index: 2;
 }
+.mobile-none{
+	display: block !important;
+}
 .single-product .product-img a span.new {
 	background-color: #8493ca;
 	display: inline-block;
@@ -5096,9 +5099,17 @@ nav[role="navigation"] > div:nth-child(2) {
 }
 .featured{
 	display: flex;
-	justify-content: space-between;
+	justify-content: left;
 	align-items: flex-start;
 	flex-wrap: wrap;
+}
+
+.featured-products.grid-list {
+	margin-right: 10px;
+}
+
+.featured-product-area .featured-products{
+	margin-right: 10px !important;
 }
 
 #Gslider .carousel-inner{

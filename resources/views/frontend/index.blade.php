@@ -104,7 +104,7 @@
         <!-- End Small Banner -->
 
         <!-- Start Product Area -->
-        <div class="product-area section pt-0 col-9 mx-auto">
+        <div class="product-area featured-product-area section pt-0 col-9 mx-auto">
                 <div class="container">
                     @php
                         $featured_products_lists=DB::table('products')->where('status','active')->where('is_featured', 1)->orderBy('id','DESC')->limit(6)->get();

@@ -1277,6 +1277,18 @@ Version:1.0
 	align-items: center;
 }
 
+.mobile-none{
+	display: none !important;
+}
+
+.featured-products.grid-list {
+	margin-right: auto;
+}
+
+.featured-product-area .featured-products{
+	margin-right: 0 !important;
+}
+
 .footer .about .text {
     font-size: 11px;
 	padding: 0px 35px;
