@@ -129,7 +129,7 @@
                         <div class="row">
                             {{-- {{$products}} --}}
                             @if(count($products)>0)
-                                <div class="featured">
+                                <div class="featured w-100">
                                     @foreach($products as $product)
                                         <div class="featured-products grid-list mt-4">
                                             <div class="single-product">

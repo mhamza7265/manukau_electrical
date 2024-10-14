@@ -794,6 +794,9 @@ Version:1.0
 .shop.single .product-des {
 	margin-top: 20px;
 }
+.shop.single .product-des p{
+	text-align: center;
+}
 .shop.single .product-des .rating {
 	margin-top: 6px;
 }
@@ -1059,6 +1062,9 @@ Version:1.0
 .shop-list .list-content {
 	margin-top: 30px;
 }
+.shop-list .list-content p{
+	text-align: center;
+}
 .shop-list .list-content .product-price span, .shop-list .list-content .product-price del{
 	text-align: center;
 	display: block;
@@ -1273,6 +1279,8 @@ Version:1.0
 
 .footer .about .text {
     font-size: 11px;
+	padding: 0px 35px;
+	text-align: center;
 }
 
 .footer .about .call {
@@ -1336,7 +1344,16 @@ Version:1.0
 .mobile-login-btn{
 	display: inline-block !important;
 }
-
+.shop-list .list-content .product-price {
+    display: flex;
+    justify-content: center;
+}
+.shop-list .list-content .product-price span{
+	margin-right: 10px;
+}
+.footer .social ul li {
+    margin-right: 0 !important;
+}
 
 }
 /* Mobile Screen */
