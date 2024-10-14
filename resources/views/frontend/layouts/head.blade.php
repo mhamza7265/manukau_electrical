@@ -13,7 +13,7 @@
 $settings=DB::table('settings')->get();
 // dd($settings)
 @endphp  
-<link rel="icon" type="image/x-icon" href="{{asset('storage/photos/31/MEW_favicon_1.svg')}}">
+<link rel="icon" type="image/x-icon" href="storage/photos/31/MEW_favicon_1.svg">
 
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
