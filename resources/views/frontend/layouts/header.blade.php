@@ -138,7 +138,7 @@
     <!-- End Topbar -->
     <div class="middle-inner">
         <div class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row align-items-center position-relative">
                 <div class="col-lg-2 col-md-12 col-12 right-bar-mobile-div">
                     <div class="right-bar-mobile">
                         <!-- Search Form -->
@@ -220,6 +220,15 @@
                             @endauth
                             <!--/ End Shopping Item -->
                         </div>
+                        <div class="hamburger">
+                            <button class="hamburger-btn" id="hamburger-btn">
+                                <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 18L20 18" stroke="#0F0957" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M4 12L20 12" stroke="#0F0957" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M4 6L20 6" stroke="#0F0957" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12 col-12">
@@ -255,7 +264,15 @@
                         </div>
                         <!--/ End Search Form -->
                     </div> --}}
-                    <div class="mobile-nav"></div>
+                    <div class="mobile-navigation">
+                        <ul>
+                            <li><a href="{{route('home')}}">Home</a></li>
+                            <li><a href="{{route('about-us')}}">About Us</a></li>
+                            <li><a href="{{route('product-grids')}}">Products</a></li>
+                            <li><a href="{{route('categories')}}">Categories</a></li>
+                            <li><a href="{{route('contact')}}">Contact Us</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-lg-7 col-md-12 col-12">
                     <div class="search-bar-top">
@@ -311,3 +328,13 @@
     </div>
     <!--/ End Header Inner -->
 </header>
+@push('scripts')
+<script>
+    $('#hamburger-btn').click(function(){
+        console.log('hamburger')
+        $('#hamburger-btn').toggleClass('active');
+        $('.mobile-navigation').toggleClass('open'); 
+    })
+</script>
+    
+@endpush

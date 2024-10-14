@@ -27,5 +27,8 @@
             align-items: center;
             margin-bottom: 10px;
         }
+        .btn-primary{
+            color: #fff !important;
+        }
     </style>
 </head>

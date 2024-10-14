@@ -153,7 +153,9 @@ class PaymentController extends Controller
         
        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
-        return response()->json(['status' => true,  'type' => 'success', 'client_secret' => $paymentIntent->client_secret]);
+       $dateToday = date('d-m-Y');
+
+        return response()->json(['status' => true,  'type' => 'success', 'client_secret' => $paymentIntent->client_secret, 'order' => $order,  'date' => $dateToday]);
     }
 
 

@@ -154,8 +154,8 @@
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
                         // Payment succeeded, redirect to success page
-
-                        window.location.href = '/payment-success';
+                        const dataToSend = encodeURIComponent(JSON.stringify(data.order));
+                        window.location.href = '/payment-success?data=' + dataToSend;
                         }
                     }
                     });

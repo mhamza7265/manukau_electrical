@@ -489,11 +489,15 @@ Version:1.0
 	display: block;
 }
 .header.shop .right-bar-mobile {
-	display: inline-block;
+	display: flex;
+	justify-content: end;
+	align-items: center;
 	padding: 0;
 	margin: 0;
 	position: relative;
-	float: right;
+}
+.sinlge-bar i {
+    color: #0F0957 !important;
 }
 .header.shop .right-bar-mobile .sinlge-bar.top-search a {
 	transform: translateY(3px);
@@ -558,8 +562,19 @@ Version:1.0
 
 .logo-mobile{
 	background-color: #060052;
-	width: 90px;
+	width: 105px;
 	display: block;
+}
+
+/* .hamburger {
+	position: absolute;
+	top: 0;
+	left: 5px;
+} */
+
+.hamburger svg{
+	height: 30px;
+	width: 30px;
 }
 
 
@@ -1196,13 +1211,17 @@ Version:1.0
 }
 
 .footer .about .logo img{
-	max-width: 180px;
+	max-width: 150px;
 }
 .footer .about .text {
     text-align: center;
 }
 .footer p{
 	text-align: center;
+	font-size: 12px;
+}
+.footer span {
+	font-size: 12px;
 }
 .footer .links h4,  .footer .social h4{
 	text-align: center;
@@ -1212,6 +1231,7 @@ Version:1.0
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+	font-size: 11px;
 }
 
 .header.shop .topbar {
@@ -1249,6 +1269,64 @@ Version:1.0
     display: flex;
     justify-content: center;
 	align-items: center;
+}
+
+.footer .about .text {
+    font-size: 11px;
+}
+
+.footer .about .call {
+    margin-top: 30px;
+    font-size: 12px;
+}
+
+.footer .links ul li a {
+    font-size: 11px;
+}
+
+.featured{
+	justify-content: center !important;
+}
+
+.mobile-navigation{
+	display: block;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.5s ease-in-out;
+}
+
+.mobile-navigation.open {
+    max-height: 500px; /* Adjust based on your content size */
+	transition: max-height 0.5s ease-in-out;
+}
+
+.mobile-navigation ul{
+	padding: 20px;
+	margin-bottom: 20px;
+	border-top: 1px solid #000;
+}
+
+.mobile-navigation ul li {
+	text-align: center;
+	border-bottom: 1px solid #0000003b;
+	padding: 4px 0;
+}
+
+.mobile-navigation ul li a {
+	color: #000;
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 2px;
+}
+
+.mobile-navigation ul li:last-child {
+	border-bottom: none;
+}
+
+.hamburger button {
+	background: transparent;
+    outline: none;
+    border: none;
 }
 
 
