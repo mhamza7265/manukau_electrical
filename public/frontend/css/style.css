@@ -5185,6 +5185,14 @@ nav[role="navigation"] > div:nth-child(2) {
 	display: none;
 }
 
+.mobile-login-btn{
+	display: none !important;
+}
+
+.desktop-login-btn{
+	display: inline-block !important;
+}
+
 @media (max-width:769px) {
 	.header-inner{
 		display: none;

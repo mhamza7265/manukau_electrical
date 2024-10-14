@@ -40,7 +40,8 @@
                                 <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Logout</a></li>
 
                             @else
-                                <li><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
+                                <li class="desktop-login-btn"><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login /</a> <a href="{{route('register.form')}}">Register</a></li>
+                                <li class="mobile-login-btn"><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login</a></li>
                             @endauth
                         </ul>
                         <div class="right-bar ml-3">

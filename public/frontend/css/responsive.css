@@ -1329,6 +1329,14 @@ Version:1.0
     border: none;
 }
 
+.desktop-login-btn{
+	display: none !important;
+}
+
+.mobile-login-btn{
+	display: inline-block !important;
+}
+
 
 }
 /* Mobile Screen */
