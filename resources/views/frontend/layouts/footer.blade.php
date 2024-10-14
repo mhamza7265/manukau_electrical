@@ -83,14 +83,14 @@
 						<div class="col-lg-6 col-12">
 							<div class="left">
 								<p>Copyright © {{date('Y')}} Manukau Electrical Warehouse  -  All Rights Reserved.</p>
-								<span style="color:blue">Powered By: <a href="https://github.com/mhamza7265" target="_blank">M.Hamza</a></span>
+								<span style="color:rgb(127, 127, 245)">Powered By: <a href="https://github.com/mhamza7265" target="_blank">M.Hamza</a></span>
 							</div>
 						</div>
-						<div class="col-lg-6 col-12">
+						{{-- <div class="col-lg-6 col-12">
 							<div class="right">
 								<img src="{{asset('backend/img/payments.png')}}" alt="#">
 							</div>
-						</div>
+						</div> --}}
 					</div>
 				</div>
 			</div>
