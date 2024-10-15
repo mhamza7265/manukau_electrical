@@ -229,7 +229,8 @@ class FrontendController extends Controller
                     ->orwhere('price','like','%'.$request->search.'%')
                     ->orderBy('id','DESC')
                     ->paginate('9');
-        return view('frontend.pages.product-grids')->with('products',$products)->with('recent_products',$recent_products);
+        $categories = MainCategory::with('subCategories')->get();
+        return view('frontend.pages.product-grids', ['products' => $products, 'recent_products' => $recent_products, 'categories' => $categories]);
     }
 
     public function productBrand(Request $request){
