@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group login-btn d-flex justify-content-between align-items-center">
+                                    <div class="form-group login-btn d-flex justify-content-between align-items-center login-action">
                                         {{-- <div class="checkbox">
                                             <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Remember me</label>
                                         </div> --}}

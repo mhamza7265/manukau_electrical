@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group login-btn d-flex justify-content-between align-items-center">
+                                    <div class="form-group login-btn d-flex justify-content-between align-items-center login-action">
                                         <button class="btn" type="submit">Register</button>
                                         <p>Already have an account? <a href="{{route('login.form')}}" class="create-account"> Login</a></p>
                                         {{-- OR

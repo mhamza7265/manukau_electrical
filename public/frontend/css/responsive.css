@@ -1316,6 +1316,10 @@ Version:1.0
 	justify-content: center !important;
 }
 
+.login-action{
+	display: block !important;
+}
+
 .mobile-navigation{
 	display: block;
 	max-height: 0;
