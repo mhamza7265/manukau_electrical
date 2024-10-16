@@ -97,7 +97,7 @@
                                 <!-- Shop Top -->
                                 <div class="shop-top">
                                     <div class="shop-shorter">
-                                        <div class="single-shorter">
+                                        {{-- <div class="single-shorter">
                                             <label>Show :</label>
                                             <select class="show" name="show" onchange="this.form.submit();">
                                                 <option value="">Default</option>
@@ -106,7 +106,7 @@
                                                 <option value="21" @if(!empty($_GET['show']) && $_GET['show']=='21') selected @endif>21</option>
                                                 <option value="30" @if(!empty($_GET['show']) && $_GET['show']=='30') selected @endif>30</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         <div class="single-shorter">
                                             <label>Sort By :</label>
                                             <select class='sortBy' name='sortBy' onchange="this.form.submit();">

@@ -3476,7 +3476,6 @@ Version:1.0
 	color: #333;
 	font-weight: 400;
 	text-align: center;
-	margin-bottom:50px;
 }
 .shop.login .form {
 	margin-top: 30px;
@@ -3487,6 +3486,16 @@ Version:1.0
 .shop.login .form .form-group input {
 	width: 100%;
 	height: 45px;
+	line-height: 50px;
+	padding: 0 20px;
+	border-radius: 3px;
+	border-radius: 0px;
+	color:#333 !important;
+	border: none;
+	background:#F6F7FB;
+}
+.shop.login .form .form-group textarea{
+	width: 100%;
 	line-height: 50px;
 	padding: 0 20px;
 	border-radius: 3px;
@@ -3531,8 +3540,6 @@ Version:1.0
 .shop.login .login-form .checkbox {
 	text-align: left;
 	margin: 0;
-	margin-top: 20px;
-	display:inline-block;
 }
 .shop.login .login-form .checkbox label {
 	font-size: 14px;
@@ -3581,14 +3588,19 @@ Version:1.0
 	transform:scale(1);
 }
 .shop.login .login-form .lost-pass{
-	display:inline-block;
-	margin-left:25px;
 	color:#333;
-	font-size:14px;
+	font-size:16px;
 	font-weight:400;
+	width: 100%;
+	display: block;
 }
 .shop.login .login-form .lost-pass:hover{
 	color:#F7941D;
+}
+
+.btn{
+	border: none !important;
+	box-shadow: none !important;
 }
 /*======================================
 	End Login CSS
@@ -3633,17 +3645,14 @@ Version:1.0
 }
 .shop-list .list-content .des{}
 .shop-list .list-content .btn {
-	margin-top: 22px;
-	height: 42px;
-	line-height: 15px;
-	color: #333;
-	background: transparent;
-	border: 1px solid #cecece;
-	font-size: 13px;
-	border-radius: 30px;
-	height: auto;
-	line-height: a;
-	padding: 13px 32px;
+	color: #fff !important;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 1;
+    display: inline-block;
+	margin-top: 5px
 }
 .shop-list .list-content .btn:hover{
 	background:#F7941D;
@@ -4149,7 +4158,7 @@ Version:1.0
 	text-transform: capitalize;
 	position: relative;
 	color: #2c2d3f;
-	font-weight: 700;
+	font-weight: 500;
 	padding-bottom: 15px;
 }
 /* Blog Sidebar */
@@ -4773,6 +4782,9 @@ Version:1.0
 	color: #333;
 	position: relative;
 }
+.contact-us .form .form-group .error {
+    color: red;
+}
 .contact-us .form .form-group label span {
 	color: #ff2c18;
 	display: inline-block;
@@ -5016,7 +5028,11 @@ Version:1.0
 }
 
 .logo img{
-	max-width: 220px;
+	max-width: 130px;
+}
+
+.right-bar-mobile-div{
+	display: none !important;
 }
 
 .float-0{
@@ -5072,6 +5088,7 @@ nav[role="navigation"] > div:nth-child(2) {
 .accordion .card-header:hover{
 	background-color: #FFA500;
 	color: #fff;
+	transition: all 0.2s ease-in-out;
 }
 
 .accordion .card-header[aria-expanded='true']{
@@ -5085,6 +5102,37 @@ nav[role="navigation"] > div:nth-child(2) {
 
 .sub-category:last-child{
 	border-bottom: none;
+}
+
+.categories h4{
+	font-weight: 500;
+	position: relative;
+	text-align: center;
+	padding-bottom: 18px;
+}
+
+.categories h4::before{
+	position: absolute;
+    content: "";
+    height: 2px;
+    width: 50px;
+    background: #F7941D;
+    left: 50%;
+    bottom: 0;
+    margin-left: -25px;
+}
+
+.card-title {
+    font-weight: 500;
+}
+
+.accordion-title h5{
+	font-weight: 500;
+}
+
+input, textarea{
+	outline: none !important;
+    box-shadow: none !important;
 }
 
 .sub-category a{
@@ -5202,6 +5250,42 @@ nav[role="navigation"] > div:nth-child(2) {
 
 .desktop-login-btn{
 	display: inline-block !important;
+}
+
+.alert-toast{
+	position: fixed !important;
+	top: 10% !important;
+	right: 10px !important;
+	padding: 20px;
+	z-index: 9991;
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.product-detail-desc{
+	position: relative;
+	text-align: left;
+	width: max-content;
+	font-weight: 500;
+	padding-bottom: 18px;
+}
+
+.product-detail-desc::before{
+	position: absolute;
+    content: "";
+    height: 2px;
+    width: 50px;
+    background: #F7941D;
+    left: 50%;
+	transform: translateX(-50%);
+    bottom: 0;
+}
+
+.create-account{
+	color: #DB9C3D !important;
+	text-decoration: underline;
 }
 
 @media (max-width:769px) {

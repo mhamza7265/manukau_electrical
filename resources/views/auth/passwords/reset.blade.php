@@ -22,11 +22,13 @@
 <section class="shop reset section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 col-12">
-                <div class="login-form">
-                    <h2>Reset Password</h2>
+            <div class="col-lg-6 offset-lg-3 col-12 contact-us">
+                <div class="login-form form-main">
+                    <div class="title">
+                        <h3>Reset Password</h3>
+                    </div>
                     <div class="body mt-3">
-                        <form method="POST" action="{{ route('password.update') }}">
+                        <form method="POST" class="form" action="{{ route('password.update') }}">
                             @csrf
 
                             <input type="hidden" name="token" value="{{ $token }}">
@@ -35,7 +37,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="email">Your Email</label>
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" placeholder="Enter your email" autofocus>
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -47,7 +49,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Enter new password" autocomplete="new-password">
 
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -59,7 +61,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="password-confirm">Confirm Password</label>
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="Confirm password" autocomplete="new-password">
                                     </div>
                                 </div>
 

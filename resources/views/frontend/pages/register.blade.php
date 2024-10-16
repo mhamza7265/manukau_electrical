@@ -24,10 +24,11 @@
     <section class="shop login section">
         <div class="container">
             <div class="row"> 
-                <div class="col-lg-6 offset-lg-3 col-12">
-                    <div class="login-form">
-                        <h2>Register</h2>
-                        <p>Please register in order to checkout more quickly</p>
+                <div class="col-lg-6 offset-lg-3 col-12 contact-us">
+                    <div class="login-form form-main">
+                        <div class="title">
+                            <h3>Register</h3>
+                        </div>
                         <!-- Form -->
                         <form class="form" method="post" action="{{route('register.submit')}}">
                             @csrf
@@ -69,9 +70,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group login-btn">
+                                    <div class="form-group login-btn d-flex justify-content-between align-items-center">
                                         <button class="btn" type="submit">Register</button>
-                                        <a href="{{route('login.form')}}" class="btn">Login</a>
+                                        <p>Already have an account? <a href="{{route('login.form')}}" class="create-account"> Login</a></p>
                                         {{-- OR
                                         <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
                                         <a href="{{route('login.redirect','github')}}" class="btn btn-github"><i class="ti-github"></i></a>

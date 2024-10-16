@@ -55,6 +55,8 @@ $(document).ready(function(){
                 }
             },
             submitHandler: function(form) {
+                $('#contact-btn').attr('disabled', 'disabled');
+                $('#contact-btn').text('Please wait...');
                 $.ajaxSetup({
                     headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -65,9 +67,11 @@ $(document).ready(function(){
                     data: $(form).serialize(),
                     url: $(form).attr('action'),
                     success: function() {
-                        $('#contactForm :input').attr('disabled', 'disabled');
+                        $('#contact-btn').removeAttr('disabled');
+                        $('#contact-btn').text('SEND MESSAGE');
+                        // $('#contactForm :input').attr('disabled', 'disabled');
                         $('#contactForm').fadeTo( "slow", 1, function() {
-                            $(this).find(':input').attr('disabled', 'disabled');
+                            // $(this).find(':input').attr('disabled', 'disabled');
                             $(this).find('label').css('cursor','default');
                             $('#success').fadeIn()
                             $('.modal').modal('hide');
@@ -75,6 +79,8 @@ $(document).ready(function(){
                         })
                     },
                     error: function() {
+                        $('#contact-btn').removeAttr('disabled');
+                        $('#contact-btn').text('SEND MESSAGE');
                         $('#contactForm').fadeTo( "slow", 1, function() {
                             $('#error').fadeIn()
                             $('.modal').modal('hide');

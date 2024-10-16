@@ -52,7 +52,7 @@
             </div>
         </div>
         <!-- categories list end -->
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9 col-12 categories">
             <h4 class="my-3">Categories</h4>
             <div class="row">
                 @foreach ($categoriesList as $cat)

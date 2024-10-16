@@ -11,8 +11,8 @@
                                 $settings=DB::table('settings')->get();
                                 
                             @endphp
-                            <li><i class="ti-headphone-alt"></i>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-                            <li><i class="ti-email"></i> @foreach($settings as $data) {{$data->email}} @endforeach</li>
+                            <li><i class="ti-headphone-alt"></i><a href="tel:@foreach($settings as $data) {{$data->phone}} @endforeach">@foreach($settings as $data) {{$data->phone}} @endforeach</a></li>
+                            <li><i class="ti-email"></i><a href="mailto:@foreach($settings as $data) {{$data->email}} @endforeach">@foreach($settings as $data) {{$data->email}} @endforeach</a></li>
                         </ul>
                         <div class="logo-mobile mr-auto">
                             @php
@@ -59,7 +59,7 @@
                                         @endphp
                                     @endforeach
                                 @endif
-                                <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count">{{Helper::wishlistCount()}}</span></a>
+                                <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o"></i> <span class="total-count {{Helper::wishlistCount() == 0 ? 'd-none' : ''}}">{{Helper::wishlistCount()}}</span></a>
                                 <!-- Shopping Item -->
                                 @auth
                                     <div class="shopping-item">
@@ -96,7 +96,7 @@
                                 <a href="{{route('wishlist')}}" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                             </div> --}}
                             <div class="sinlge-bar shopping">
-                                <a href="{{route('cart')}}" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{Helper::cartCount()}}</span></a>
+                                <a href="{{route('cart')}}" class="single-icon"><i class="ti-bag"></i> <span class="total-count {{Helper::cartCount() == 0 ? 'd-none' : ''}}">{{Helper::cartCount()}}</span></a>
                                 <!-- Shopping Item -->
                                 @auth
                                     <div class="shopping-item">

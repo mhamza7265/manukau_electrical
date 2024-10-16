@@ -32,7 +32,7 @@
 										$settings=DB::table('settings')->get();
 									@endphp
 									<h4>Get in touch</h4>
-									<h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger">[You need to login first]</span>@endauth</h3>
+									<h3>Write us a message</h3>
 								</div>
 								<form class="form-contact form contact_form" method="post" action="{{route('contact.store')}}" id="contactForm" novalidate="novalidate">
 									@csrf
@@ -40,36 +40,36 @@
 										<div class="col-lg-6 col-12">
 											<div class="form-group">
 												<label>Your Name<span>*</span></label>
-												<input name="name" id="name" type="text" placeholder="Enter your name">
+												<input name="name" class="form-control" id="name" type="text" placeholder="Enter your name">
 											</div>
 										</div>
 										<div class="col-lg-6 col-12">
 											<div class="form-group">
-												<label>Your Subjects<span>*</span></label>
-												<input name="subject" type="text" id="subject" placeholder="Enter Subject">
+												<label>Subjects<span>*</span></label>
+												<input name="subject" class="form-control" type="text" id="subject" placeholder="Enter Subject">
 											</div>
 										</div>
 										<div class="col-lg-6 col-12">
 											<div class="form-group">
 												<label>Your Email<span>*</span></label>
-												<input name="email" type="email" id="email" placeholder="Enter email address">
+												<input name="email" class="form-control" type="email" id="email" placeholder="Enter email address">
 											</div>	
 										</div>
 										<div class="col-lg-6 col-12">
 											<div class="form-group">
 												<label>Your Phone<span>*</span></label>
-												<input id="phone" name="phone" type="number" placeholder="Enter your phone">
+												<input id="phone" class="form-control" name="phone" type="number" placeholder="Enter your phone">
 											</div>	
 										</div>
 										<div class="col-12">
 											<div class="form-group message">
-												<label>your message<span>*</span></label>
-												<textarea name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
+												<label>Your message<span>*</span></label>
+												<textarea name="message" class="form-control" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group button">
-												<button type="submit" class="btn ">Send Message</button>
+												<button type="submit" class="btn" id="contact-btn">Send Message</button>
 											</div>
 										</div>
 									</div>

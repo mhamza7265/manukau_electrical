@@ -1293,6 +1293,10 @@ Version:1.0
     color: #fff !important;
 }
 
+.right-bar-mobile-div{
+	display: block !important;
+}
+
 .footer .about .text {
     font-size: 11px;
 	padding: 0px 35px;

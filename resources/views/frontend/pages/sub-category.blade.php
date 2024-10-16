@@ -51,27 +51,31 @@
             </div>
         </div>
         <!-- categories list end -->
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9 col-12 categories">
             <h4 class="my-3">Sub Categories</h4>
             <div class="row">
-                @foreach ($categoriesList as $cat)
-                    <div class="col-md-8 col-lg-6 col-xl-4 mt-4">
-                        <div class="card text-black">
-                            <div class="image-div">
-                                @if($cat->photo)
-                                    <a href="{{route('products', $cat->slug)}}"><img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}"></a>
-                                @else
-                                    <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="card-img-top" style="max-width:80px" alt="avatar.png">
-                                @endif
-                            </div>
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <a href="{{route('products', $cat->slug)}}"><h5 class="card-title">{{$cat->title}}</h5></a>
+                @if(isset($categoriesList) && count($categoriesList) > 0)
+                    @foreach ($categoriesList as $cat)
+                        <div class="col-md-8 col-lg-6 col-xl-4 mt-4">
+                            <div class="card text-black">
+                                <div class="image-div">
+                                    @if($cat->photo)
+                                        <a href="{{route('products', $cat->slug)}}"><img src="{{$cat->photo}}" class="img-fluid" class="card-img-top" alt="{{$cat->photo}}"></a>
+                                    @else
+                                        <img src="{{asset('backend/img/thumbnail-default.jpg')}}" class="card-img-top" style="max-width:80px" alt="avatar.png">
+                                    @endif
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <a href="{{route('products', $cat->slug)}}"><h5 class="card-title">{{$cat->title}}</h5></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <h6 class="text-center my-5 w-100">No sub-categories found!</h6>
+                @endif
             </div>
             {{$categoriesList->links()}}
         </div>

@@ -173,12 +173,13 @@
 									<div class="col-12">
 										<div class="product-info">
 											<div class="nav-main">
-												<!-- Tab Nav -->
+												{{-- <!-- Tab Nav -->
 												<ul class="nav nav-tabs" id="myTab" role="tablist">
 													<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li>
-													{{-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li> --}}
+													<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
 												</ul>
-												<!--/ End Tab Nav -->
+												<!--/ End Tab Nav --> --}}
+												<h4 class="product-detail-desc">Description</h4>
 											</div>
 											<div class="tab-content" id="myTabContent">
 												<!-- Description Tab -->
@@ -312,71 +313,73 @@
 		</section>
 		<!--/ End Shop Single -->
 		
+	@if(isset($product_detail->rel_prods) && count($product_detail->rel_prods) > 0)	
 		<!-- Start Most Popular -->
-	<div class="product-area most-popular related-product section">
-        <div class="container">
-            <div class="row">
-				<div class="col-12">
-					<div class="section-title">
-						<h2>Related Products</h2>
+		<div class="product-area most-popular related-product section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h2>Related Products</h2>
+						</div>
 					</div>
 				</div>
-            </div>
-            <div class="row">
-                {{-- {{$product_detail->rel_prods}} --}}
-                <div class="col-12">
-                    <div class="owl-carousel popular-slider">
-                        @foreach($product_detail->rel_prods as $data)
-                            @if($data->id !==$product_detail->id)
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-img">
-										<a href="{{route('product-detail',$data->slug)}}">
-											@php 
-												$photo=explode(',',$data->photo);
-											@endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            {{-- <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}"> --}}
-											@if (auth()->user())
-												<span class="price-dec">{{$data->discount}} % Off</span>
-											@endif
-                                            {{-- <span class="out-of-stock">Hot</span> --}}
-                                        </a>
-                                        <div class="button-head">
-                                            {{-- <div class="product-action">
-                                                <a data-toggle="modal" data-target="#modelExample" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                                            </div> --}}
-                                            {{-- <div class="product-action-2 ">
-                                                <a title="Add to cart" href="#">Add to cart</a>
-                                            </div> --}}
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
-                                        <div class="product-price">
-                                            @php 
-                                                $after_discount=($data->price-(($data->discount*$data->price)/100));
-                                            @endphp
-											@if (auth()->user())
-												<span class="old">${{number_format($data->price,2)}}</span>
-												<span>${{number_format($after_discount,2)}}</span>
-											@endif
-                                        </div>
-                                      
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                                	
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-	<!-- End Most Popular Area -->
+				<div class="row">
+					{{-- {{$product_detail->rel_prods}} --}}
+					<div class="col-12">
+						<div class="owl-carousel popular-slider">
+							@foreach($product_detail->rel_prods as $data)
+								@if($data->id !==$product_detail->id)
+									<!-- Start Single Product -->
+									<div class="single-product">
+										<div class="product-img">
+											<a href="{{route('product-detail',$data->slug)}}">
+												@php 
+													$photo=explode(',',$data->photo);
+												@endphp
+												<img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
+												{{-- <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}"> --}}
+												@if (auth()->user())
+													<span class="price-dec">{{$data->discount}} % Off</span>
+												@endif
+												{{-- <span class="out-of-stock">Hot</span> --}}
+											</a>
+											<div class="button-head">
+												{{-- <div class="product-action">
+													<a data-toggle="modal" data-target="#modelExample" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+													<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+												</div> --}}
+												{{-- <div class="product-action-2 ">
+													<a title="Add to cart" href="#">Add to cart</a>
+												</div> --}}
+											</div>
+										</div>
+										<div class="product-content">
+											<h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
+											<div class="product-price">
+												@php 
+													$after_discount=($data->price-(($data->discount*$data->price)/100));
+												@endphp
+												@if (auth()->user())
+													<span class="old">${{number_format($data->price,2)}}</span>
+													<span>${{number_format($after_discount,2)}}</span>
+												@endif
+											</div>
+										
+										</div>
+									</div>
+									<!-- End Single Product -->
+										
+								@endif
+							@endforeach
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Most Popular Area -->
+	@endif
 	
 
   <!-- Modal -->
