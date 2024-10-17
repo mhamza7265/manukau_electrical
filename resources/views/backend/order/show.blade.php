@@ -108,8 +108,18 @@
                         <td> : $ {{number_format($order->total_amount,2)}}</td>
                     </tr>
                     <tr>
+                        @php
+                          $paymentMethod = null;
+                          if($order->payment_method == 'cod'){
+                            $paymentMethod = 'Cash On Delivery';
+                          }elseif($order->payment_method == 'paypal'){
+                            $paymentMethod = 'PayPal';
+                          }elseif ($order->payment_method == 'credit/debit_card') {
+                            $paymentMethod = 'Credit/Debit Card';
+                          }
+                        @endphp
                         <td>Payment Method</td>
-                        <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
+                        <td> : {{$paymentMethod}}</td>
                     </tr>
                     <tr>
                         <td>Payment Status</td>
