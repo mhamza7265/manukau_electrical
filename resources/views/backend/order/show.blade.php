@@ -35,9 +35,11 @@
             <td>{{$order->payment_status}}</td>
             <td>{{$order->stripe_payment_id}}</td>
             <td>
-                @if($order->status=='new')
+                @if($order->status=='pending')
                   <span class="badge badge-primary">{{$order->status}}</span>
-                @elseif($order->status=='process')
+                @elseif($order->status=='processing')
+                  <span class="badge badge-warning">{{$order->status}}</span>
+                @elseif($order->status=='shipped')
                   <span class="badge badge-warning">{{$order->status}}</span>
                 @elseif($order->status=='delivered')
                   <span class="badge badge-success">{{$order->status}}</span>
