@@ -15,7 +15,7 @@
 					$settings=DB::table('settings')->get();
 					
 				@endphp
-				<img src="{{asset('storage/photos/31/MEW_logo.svg ')}}" alt="logo">
+				<img src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo">
 			</div>
 		</div>
 	</div>
