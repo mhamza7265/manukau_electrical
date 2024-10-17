@@ -5,6 +5,10 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Events\MessageSent;
+use App\Mail\SendQuery;
+use Illuminate\Support\Facades\Mail;
+
+
 class MessageController extends Controller
 {
     /**
@@ -62,6 +66,8 @@ class MessageController extends Controller
         // $data['photo']=Auth()->user()->photo;
         // return $data;    
         event(new MessageSent($data));
+        Mail::to(env('ADMIN_EMAIL_ID'))->send(new SendQuery($message->name, $message->email, $message->subject,  $message->phone, $message->message));
+
         exit();
     }
 

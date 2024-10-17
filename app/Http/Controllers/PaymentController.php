@@ -83,7 +83,7 @@ class PaymentController extends Controller
         $order_data['quantity'] = Helper::cartCount();
         if(session('coupon')) $order_data['coupon'] = session('coupon')['value'];
         $shipping ? $order_data['total_amount'] = Helper::totalCartPrice() + $shippingData[0] : $order_data['total_amount']=Helper::totalCartPrice();
-        $order_data['status'] = "process";
+        $order_data['status'] = "pending";
         $order_data['payment_status'] = 'unpaid';
         $order_data['first_name'] = $firstName;
         $order_data['last_name'] = $lastName;
@@ -93,7 +93,7 @@ class PaymentController extends Controller
         $order_data['address2'] = $address2;
         $order_data['country'] = $country;
         $order_data['post_code'] = $postCode;
-        $order_data['payment_method'] = 'credit/debit_card';
+        $order_data['payment_method'] = $paymentMethod;
 
         $validator = validator($order_data,[
             'first_name'=>'string|required',
@@ -102,6 +102,7 @@ class PaymentController extends Controller
             'address2'=>'string|nullable',
             'coupon'=>'nullable|numeric',
             'phone'=>'numeric|required',
+            'country' => 'string|required',
             'post_code'=>'string|nullable',
             'email'=>'string|required',
             'shipping_id' => 'required',

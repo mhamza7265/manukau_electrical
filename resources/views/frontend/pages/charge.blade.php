@@ -22,11 +22,11 @@
 <section class="shop reset section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3 col-12">
-                <div class="login-form">
+            <div class="col-lg-6 offset-lg-3 col-12 contact-us">
+                <div class="login-form form-main">
                     <h4>Checkout</h4>
                     <div class="body mt-3">
-                        <form action="{{route('checkout.payment')}}" id="checkout-form" method="POST">
+                        <form action="{{route('checkout.payment')}}" class="form" id="checkout-form" method="POST">
                             @csrf
                             <input type='hidden' name='stripeToken' id='stripe-token-id'> 
                             <input type="hidden" name="first_name" value="{{ old('first_name', $firstName) }}" required>
@@ -77,7 +77,7 @@
                                 <div id="card-errors" role="alert"></div>
                                 <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button type="button"  class="btn btn-primary" id="pay-btn">Submit Payment</button>
+                                        <button type="button"  class="btn btn-primary" id="pay-btn"><i class="fa fa-spinner fa-spin spinner d-none"></i> Payment</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
             
             $("#pay-btn").click(function(){
                 document.getElementById("pay-btn").disabled = true;
-                $('#pay-btn').text('PLEASE WAIT...');
+                $('.spinner').removeClass('d-none');
 
                 $.ajax({
                 url: "{{route('checkout.payment')}}",
@@ -150,10 +150,12 @@
                             icon: "error",
                         })
                         $('#pay-btn').prop('disabled', false);
-                        $('#pay-btn').text('SUBMIT PAYMENT');
+                        $('.spinner').addClass('d-none');
                     } else {
                         if (result.paymentIntent.status === 'succeeded') {
                         // Payment succeeded, redirect to success page
+                        $('#pay-btn').prop('disabled', false);
+                        $('.spinner').addClass('d-none');
                         const dataToSend = encodeURIComponent(JSON.stringify(data.order));
                         window.location.href = '/payment-success?data=' + dataToSend;
                         }
@@ -170,6 +172,7 @@
                     })
                     $('#card-errors').text('An error occurred. Please try again.');
                     $('#pay-btn').prop('disabled', false);
+                    $('.spinner').addClass('d-none');
                 }
                 });
 

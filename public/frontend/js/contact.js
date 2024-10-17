@@ -56,7 +56,7 @@ $(document).ready(function(){
             },
             submitHandler: function(form) {
                 $('#contact-btn').attr('disabled', 'disabled');
-                $('#contact-btn').text('Please wait...');
+                $('.spinner').removeClass('d-none');
                 $.ajaxSetup({
                     headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -68,7 +68,7 @@ $(document).ready(function(){
                     url: $(form).attr('action'),
                     success: function() {
                         $('#contact-btn').removeAttr('disabled');
-                        $('#contact-btn').text('SEND MESSAGE');
+                        $('.spinner').addClass('d-none');
                         // $('#contactForm :input').attr('disabled', 'disabled');
                         $('#contactForm').fadeTo( "slow", 1, function() {
                             // $(this).find(':input').attr('disabled', 'disabled');
@@ -80,7 +80,7 @@ $(document).ready(function(){
                     },
                     error: function() {
                         $('#contact-btn').removeAttr('disabled');
-                        $('#contact-btn').text('SEND MESSAGE');
+                        $('.spinner').addClass('d-none');
                         $('#contactForm').fadeTo( "slow", 1, function() {
                             $('#error').fadeIn()
                             $('.modal').modal('hide');

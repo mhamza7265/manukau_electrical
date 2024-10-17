@@ -40,6 +40,7 @@ class OrderController extends Controller
 
     public function submit(Request $request)
     {
+        // dd($request->all());
         // Check if user is logedin
         if (!auth()->check()) {
             request()->session()->flash('error', 'You must be logged in to access the cart.');
@@ -57,6 +58,7 @@ class OrderController extends Controller
             'address2'=>'string|nullable',
             'coupon'=>'nullable|numeric',
             'phone'=>'numeric|required',
+            'country' => 'string|required',
             'post_code'=>'string|nullable',
             'email'=>'string|required',
             'shipping' => 'required',
@@ -282,24 +284,24 @@ class OrderController extends Controller
     {
         $order=Order::find($id);
         $this->validate($request,[
-            'status'=>'required|in:new,process,delivered,cancel'
+            'status'=>'required|in:pending,processing,shipped,delivered,cancelled'
         ]);
-        $data=$request->all();
+        $data = $request->all();
         // return $request->status;
-        if($request->status=='delivered'){
+        if($request->status=='cancelled'){
             foreach($order->cart as $cart){
                 $product=$cart->product;
                 // return $product;
-                $product->stock -=$cart->quantity;
+                $product->stock +=$cart->quantity;
                 $product->save();
             }
         }
         $status=$order->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated order');
+            request()->session()->flash('success','Status updated successfully!');
         }
         else{
-            request()->session()->flash('error','Error while updating order');
+            request()->session()->flash('error','Error updating status1');
         }
         return redirect()->route('order.index');
     }
