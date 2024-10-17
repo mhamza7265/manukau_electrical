@@ -73,7 +73,9 @@
                     </tr>
                     <tr>
                         <td>Order Date</td>
-                        <td> : {{$order->created_at->format('D d M, Y')}} at {{$order->created_at->format('g : i a')}} </td>
+                        <td> : {{$order->created_at->format('D d M, Y')}}</td>
+                        {{-- <td> : {{$order->created_at->format('D d M, Y')}} at {{$order->created_at->format('g : i a')}} </td> --}}
+
                     </tr>
                     {{-- <tr>
                         <td>Quantity</td>
