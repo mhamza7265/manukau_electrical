@@ -9,8 +9,13 @@
 	<div class="preloader">
 		<div class="preloader-inner">
 			<div class="preloader-icon">
-				<span></span>
-				<span></span>
+				{{-- <span></span>
+				<span></span> --}}
+				@php
+					$settings=DB::table('settings')->get();
+					
+				@endphp
+				<img src="{{asset('storage/photos/31/MEW_logo.svg ')}}" alt="logo">
 			</div>
 		</div>
 	</div>
