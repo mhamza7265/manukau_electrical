@@ -386,16 +386,43 @@ class FrontendController extends Controller
     }
 
     public function loginSubmit(Request $request){
-        $data= $request->all();
-        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>'active'])){
-            Session::put('user',$data['email']);
-            request()->session()->flash('success','Successfully login');
-            return redirect()->route('home');
+        $data = $request->all();
+
+        try {
+            $user = User::where('email', $data['email'])->firstOrFail();
+        
+            // Check the password
+            if (Hash::check($data['password'], $user->password)) {
+                // Check if the user account is active
+                if ($user->status === 'active') {
+                    Auth::login($user);
+                    Session::put('user',$data['email']);
+                    request()->session()->flash('success', 'Successfully logged in');
+                    return redirect()->route('home');
+                } else {
+                    request()->session()->flash('error', 'Your account has been deactivated. Please contact the admin.');
+                    return redirect()->route('login.form');
+                }
+            } else {
+                request()->session()->flash('error', 'Invalid password');
+                return redirect()->route('login.form');
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            request()->session()->flash('error', 'Invalid email or password');
+            return redirect()->route('login.form');
         }
-        else{
-            request()->session()->flash('error','Invalid email or password please try again!');
-            return redirect()->back();
-        }
+        
+
+
+        // if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>'active'])){
+        //     Session::put('user',$data['email']);
+        //     request()->session()->flash('success','Successfully login');
+        //     return redirect()->route('home');
+        // }
+        // else{
+        //     request()->session()->flash('error','Invalid email or password please try again!');
+        //     return redirect()->route('login.form');
+        // }
     }
 
     public function logout(){

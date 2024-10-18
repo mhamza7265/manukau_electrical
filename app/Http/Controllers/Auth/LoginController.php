@@ -10,6 +10,7 @@ use Socialite;
 use App\User;
 use Auth;
 use Laravel\Socialite\Facades\Socialite as FacadesSocialite;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -47,6 +48,35 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     $user = User::where('email', $request->email)->first();
+
+    //     if ($user) {
+    //         if (Hash::check($request->password, $user->password)) {
+    //             if ($user->status === 'active') {
+    //                 Auth::login($user);
+    //                 request()->session()->flash('success', 'Successfully logged in');
+    //                 return redirect()->route('admin');
+    //             } else {
+    //                 request()->session()->flash('error', 'Your account has been deactivated. Please contact the admin.');
+    //                 return redirect()->route('login');
+    //             }
+    //         } else {
+    //             request()->session()->flash('error', 'Invalid password');
+    //             return redirect()->route('login');
+    //         }
+    //     } else {
+    //         request()->session()->flash('error', 'Invalid email or password');
+    //         return redirect()->route('login.form');
+    //     }
+    // }
 
     public function redirect($provider)
     {

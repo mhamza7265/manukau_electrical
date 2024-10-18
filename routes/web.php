@@ -43,7 +43,7 @@
     Route::get('storage-link',[AdminController::class,'storageLink'])->name('storage.link');
 
 
-    Auth::routes(['register' => false, 'verify' => true]);
+    Auth::routes(['register' => false, 'login' => false, 'verify' => true]);
 
     Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
     Route::post('user/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
@@ -146,7 +146,7 @@
 
 // Backend section start
 
-    Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
+    Route::group(['prefix' => '/admin', 'middleware' => ['user', 'admin', 'verified']], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin');
         Route::get('/file-manager', function () {
             return view('backend.layouts.file-manager');

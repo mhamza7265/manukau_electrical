@@ -9,6 +9,8 @@
 
 <body class="bg-gradient-primary">
 
+  @include('frontend.layouts.notification')
+
   <div class="container">
 
     <!-- Outer Row -->
