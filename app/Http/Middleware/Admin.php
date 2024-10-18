@@ -19,7 +19,7 @@ class Admin
             return $next($request);
         }
         else{
-            request()->session()->flash('error','You do not have any permission to access this page');
+            request()->session()->flash('error','Permission Error: You are not authorized to access this page');
             return redirect()->route($request->user()->role);
         }
     }
