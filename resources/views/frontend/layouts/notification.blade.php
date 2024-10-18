@@ -5,6 +5,13 @@
     </div>
 @endif
 
+@if(session('info'))
+    <div class="alert alert-warning alert-dismissable fade show text-center alert-toast">
+        <button class="close" data-dismiss="alert" aria-label="Close">×</button>
+        {{session('success')}}
+    </div>
+@endif
+
 
 @if(session('error'))
     <div class="alert alert-danger alert-dismissable fade show text-center alert-toast">

@@ -43,7 +43,7 @@
     Route::get('storage-link',[AdminController::class,'storageLink'])->name('storage.link');
 
 
-    Auth::routes(['register' => false]);
+    Auth::routes(['register' => false, 'verify' => true]);
 
     Route::get('user/login', [FrontendController::class, 'login'])->name('login.form');
     Route::post('user/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
@@ -74,18 +74,18 @@
     Route::get('/product-brand/{slug}', [FrontendController::class, 'productBrand'])->name('product-brand');
     Route::get('products/{slug}', [frontendController::class, 'productsByCat'])->name('products');
 // Cart section
-    Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
-    Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
-    Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
-    Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update');
+    Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware(['user', 'verified']);
+    Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware(['user', 'verified']);
+    Route::get('cart-delete/{id}', [CartController::class, 'cartDelete'])->name('cart-delete')->middleware(['user', 'verified']);;
+    Route::post('cart-update', [CartController::class, 'cartUpdate'])->name('cart.update')->middleware(['user', 'verified']);;
 
-    Route::get('/cart', function () {return view('frontend.pages.cart');})->name('cart')->middleware('user');
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('user');
+    Route::get('/cart', function () {return view('frontend.pages.cart');})->name('cart')->middleware(['user','verified']);
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout')->middleware(['user','verified']);
 
 // Wishlist
-    Route::get('/wishlist', function () {return view('frontend.pages.wishlist');})->name('wishlist');
-    Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
-    Route::get('wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
+    Route::get('/wishlist', function () {return view('frontend.pages.wishlist');})->name('wishlist')->middleware(['user', 'verified']);;
+    Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware(['user', 'verified']);
+    Route::get('wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete')->middleware(['user', 'verified']);;
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');
     Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
     Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');
@@ -146,7 +146,7 @@
 
 // Backend section start
 
-    Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin', 'verified']], function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin');
         Route::get('/file-manager', function () {
             return view('backend.layouts.file-manager');
@@ -200,7 +200,7 @@
 
 
 // User section start
-    Route::group(['prefix' => '/user', 'middleware' => ['user']], function () {
+    Route::group(['prefix' => '/user', 'middleware' => ['user', 'verified']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('user');
         // Profile
         Route::get('/profile', [HomeController::class, 'profile'])->name('user-profile');

@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Notifications\VerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -41,6 +42,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function index()
+    {
+        return view('frontend.pages.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -64,10 +70,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        dd($data);
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // Send the verification email
+        $user->sendEmailVerificationNotification();
+
+        session()->flash('info', 'Please check your email for a verification link.');
+
+        return $user;
     }
 }

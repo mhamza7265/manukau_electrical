@@ -33,6 +33,9 @@
             margin-bottom: 10px !important;
             margin-right: 10px !important;
         }
+        .bg-login-image{
+            background: url('/storage/photos/31/login.svg');
+        }
 
     </style>
   
