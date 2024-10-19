@@ -373,8 +373,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
+                        <h4>shiping</h4>
+                        <p>All over the country</p>
                     </div>
                     <!-- End Single Service -->
                 </div>

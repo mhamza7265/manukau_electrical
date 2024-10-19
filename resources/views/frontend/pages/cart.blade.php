@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','Cart Page')
+@section('title','MEW || Cart')
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -87,7 +87,6 @@
 										<tr>
 											<td class="text-center">
 												Cart is empty! <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
-
 											</td>
 										</tr>
 								@endif
@@ -163,8 +162,8 @@
 					<!-- Start Single Service -->
 					<div class="single-service">
 						<i class="ti-rocket"></i>
-						<h4>Free shiping</h4>
-						<p>Orders over $100</p>
+						<h4>shiping</h4>
+                        <p>All over the country</p>
 					</div>
 					<!-- End Single Service -->
 				</div>

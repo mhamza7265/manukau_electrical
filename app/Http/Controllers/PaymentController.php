@@ -146,13 +146,8 @@ class PaymentController extends Controller
             'currency' => 'nzd',
             'customer' => $customer->id,
             'payment_method_types' => ['card'],
-            'metadata' => ['order_id' => $order->id, 'cart_id' =>  $string],
+            'metadata' => ['order_id' => $order->id, 'cart_id' =>  $string, 'user_id' =>  auth()->user()->id],
         ]);
-
-        session()->forget(['cart', 'coupon', 'first_name', 'last_name', 'phone', 'email', 'address1',  'address2', 'post_code', 'shipping', 'payment_method', 'country']);
-
-        
-       Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
        $dateToday = date('d-m-Y');
 
@@ -187,6 +182,7 @@ class PaymentController extends Controller
             $paymentIntent = $event->data->object;
             $orderId = $paymentIntent->metadata->order_id;
             $cartId = $paymentIntent->metadata->cart_id;
+            $userId = $paymentIntent->metadata->user_id;
 
             Log::info('payment-intent:' , $paymentIntent->toArray());
 
@@ -201,23 +197,26 @@ class PaymentController extends Controller
                 $order->payment_status = 'paid';
                 $order->stripe_payment_id = $paymentIntent->id;
                 $order->save();
-            }
+            
 
-            // Deduct stock or perform other actions
-            foreach ($cartIdArr as $item) {
-                $cartItem = Cart::find($item);
-                $product = Product::find($cartItem->product_id);
-                if($product){
-                    if ($product->stock >= $cartItem->quantity) {
-                        $product->stock -= $cartItem->quantity;
-                        $product->save();
+                // Deduct stock or perform other actions
+                foreach ($cartIdArr as $item) {
+                    $cartItem = Cart::find($item);
+                    $product = Product::find($cartItem->product_id);
+                    if($product){
+                        if ($product->stock >= $cartItem->quantity) {
+                            $product->stock -= $cartItem->quantity;
+                            $product->save();
+                        }else{
+                            Log::warning("Insufficient stock for product ID {$cartItem->product_id}. Requested: {$cartItem->quantity}, Available: {$product->stock}");
+                        }
                     }else{
-                        Log::warning("Insufficient stock for product ID {$cartItem->product_id}. Requested: {$cartItem->quantity}, Available: {$product->stock}");
+                        Log::error("Product with ID {$cartItem->product_id} not found.");
                     }
-                }else{
-                    Log::error("Product with ID {$cartItem->product_id} not found.");
+                    
                 }
-                
+
+                    Cart::where('user_id', $userId)->where('order_id', null)->update(['order_id' => $order->id]);
             }
         }
 

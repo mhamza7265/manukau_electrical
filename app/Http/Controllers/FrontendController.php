@@ -516,6 +516,7 @@ class FrontendController extends Controller
 
     public function paymentSuccess()
     {
+        session()->forget(['cart', 'coupon', 'first_name', 'last_name', 'phone', 'email', 'address1',  'address2', 'post_code', 'shipping', 'payment_method', 'country']);
         return view('frontend.pages.payment-success');
     }
     

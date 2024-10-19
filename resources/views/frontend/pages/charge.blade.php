@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','MEA || Checkout')
+@section('title','MEA || MEW || Checkout - Payment')
 
 @section('main-content')
 <!-- Breadcrumbs -->
@@ -11,7 +11,7 @@
                 <div class="bread-inner">
                     <ul class="bread-list">
                         <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                        <li class="active"><a href="javascript:void(0);">Checkout</a></li>
+                        <li class="active"><a href="javascript:void(0);">Payment</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-12 contact-us">
                 <div class="login-form form-main">
-                    <h4>Checkout</h4>
+                    <h4>Checkout - Payment</h4>
                     <div class="body mt-3">
                         <form action="{{route('checkout.payment')}}" class="form" id="checkout-form" method="POST">
                             @csrf
@@ -182,7 +182,7 @@
                                         // Use the client_secret to confirm the card payment
                                         stripe.confirmCardPayment(data.client_secret, {
                                         payment_method: {
-                                            card: cardElement // Assuming 'card' is defined and initialized elsewhere
+                                            card: cardElement 
                                         }
                                     }).then(function(result) {
                                         if (result.error) {

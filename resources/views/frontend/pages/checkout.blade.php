@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','Checkout page')
+@section('title','MEW || Checkout - Shipping')
 
 @section('main-content')
 
@@ -12,7 +12,7 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0)">Checkout</a></li>
+                            <li class="active"><a href="javascript:void(0)">Shipping Details</a></li>
                         </ul>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
 
                         <div class="col-lg-8 col-12 contact-us">
                             <div class="checkout-form form-main">
-                                <h2>Make Your Checkout Here</h2>
+                                <h2>Checkout - Shipping Details</h2>
                                 {{-- <p>Please register in order to checkout more quickly</p> --}}
                                 <!-- Form -->
                                 <div class="row">
@@ -446,8 +446,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="ti-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
+                        <h4>shiping</h4>
+                        <p>All over the country</p>
                     </div>
                     <!-- End Single Service -->
                 </div>

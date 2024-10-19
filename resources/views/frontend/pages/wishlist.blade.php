@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','Wishlist Page')
+@section('title','MEW || Wishlist')
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -35,7 +35,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							@if(Helper::getAllProductFromWishlist())
+							@php
+								$wishItems = Helper::getAllProductFromWishlist();
+								// echo count($cartItems);
+							@endphp
+							@if(isset($wishItems) &&  count($wishItems) > 0)
 								@foreach(Helper::getAllProductFromWishlist() as $key=>$wishlist)
 									<tr>
 										@php 
@@ -54,7 +58,7 @@
 							@else 
 								<tr>
 									<td class="text-center">
-										There are no any wishlist available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+										Wishlist is empty! <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
 
 									</td>
 								</tr>
@@ -78,8 +82,8 @@
 					<!-- Start Single Service -->
 					<div class="single-service">
 						<i class="ti-rocket"></i>
-						<h4>Free shiping</h4>
-						<p>Orders over $100</p>
+						<h4>shiping</h4>
+                        <p>All over the country</p>
 					</div>
 					<!-- End Single Service -->
 				</div>

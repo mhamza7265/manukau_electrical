@@ -53,15 +53,15 @@
 
 
 	<!-- Start Shop Services Area -->
-	<section class="shop-services section">
+	<section class="shop-services section home">
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-lg-3 col-md-6 col-12">
 					<!-- Start Single Service -->
 					<div class="single-service">
 						<i class="ti-rocket"></i>
-						<h4>Free shiping</h4>
-						<p>Orders over $100</p>
+						<h4>shiping</h4>
+                        <p>All over the country</p>
 					</div>
 					<!-- End Single Service -->
 				</div>
