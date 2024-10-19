@@ -49,14 +49,14 @@
 											@php
 											$photo=explode(',',$cart->product['photo']);
 											@endphp
-											<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
-											<td class="product-des" data-title="Description">
+											<td class="image" data-title="Product"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+											<td class="product-des" data-title="Name">
 												<p class="product-name"><a href="{{route('product-detail',$cart->product['slug'])}}" target="_blank">{{$cart->product['title']}}</a></p>
 												<p class="product-des">{!!($cart['summary']) !!}</p>
 											</td>
 											<td class="price" data-title="Price"><span>${{number_format($cart['price'],2)}}</span></td>
-											<td>{{$cart->product->stock}}</td>
-											<td class="qty" data-title="Qty"><!-- Input Order -->
+											<td class="stock" data-title="Available Stock">{{$cart->product->stock}}</td>
+											<td class="qty" data-title="Quantity"><!-- Input Order -->
 												<div class="input-group">
 													<div class="button minus">
 														<button type="button" class="btn btn-primary btn-number"  data-type="minus" data-field="quant[{{$key}}]">

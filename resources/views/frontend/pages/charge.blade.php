@@ -70,14 +70,14 @@
                                         </div>
                                     </div>
                                     {{-- <span  id="card-errors" role="alert"></span> --}}
-
+                                    <!-- Used to display form errors. -->
+                                    <div class="text-danger mb-3" id="card-errors" role="alert"></div>
                                 </div>
-
-                                <!-- Used to display form errors. -->
-                                <div id="card-errors" role="alert"></div>
                                 <div class="col-12">
                                     <div class="form-group login-btn">
-                                        <button type="button"  class="btn btn-primary" id="pay-btn"><i class="fa fa-spinner fa-spin spinner d-none"></i> Payment</button>
+                                        <button type="button"  class="btn btn-primary" id="pay-btn">
+                                            <i class="fa fa-spinner fa-spin spinner d-none"></i> Payment
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +94,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            //initialize stripe
             var stripe = Stripe('{{ env('STRIPE_KEY') }}')
             var elements = stripe.elements();
             var cardElement = elements.create('card',{
@@ -118,65 +119,148 @@
             });
             cardElement.mount('#card-element');
             
-            $("#pay-btn").click(function(){
-                document.getElementById("pay-btn").disabled = true;
-                $('.spinner').removeClass('d-none');
+            // Add an event listener to the form to submit the payment when the form is submitted.
+            $("#pay-btn").click(function(event){
+                event.preventDefault();
 
-                $.ajax({
-                url: "{{route('checkout.payment')}}",
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    amount: $('input[name="amount"]').val(),
-                    email: $('input[name="email"]').val()
-                }),
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    console.log('data', data);
-                    // Use the client_secret to confirm the card payment
-                    stripe.confirmCardPayment(data.client_secret, {
-                    payment_method: {
-                        card: cardElement // Assuming 'card' is defined and initialized elsewhere
-                    }
-                    }).then(function(result) {
-                    if (result.error) {
-                        // Show error to your customer (e.g., insufficient funds)
-                        $('#card-errors').text(result.error.message);
-                        swal.fire({
-                            title: "Error",
-                            text: result.error.message,
-                            icon: "error",
-                        })
-                        $('#pay-btn').prop('disabled', false);
-                        $('.spinner').addClass('d-none');
-                    } else {
-                        if (result.paymentIntent.status === 'succeeded') {
-                        // Payment succeeded, redirect to success page
-                        $('#pay-btn').prop('disabled', false);
-                        $('.spinner').addClass('d-none');
-                        const dataToSend = encodeURIComponent(JSON.stringify(data.order));
-                        window.location.href = '/payment-success?data=' + dataToSend;
+                // Clear previous error messages
+                $('#card-errors').text('');
+
+                if (validateForm()) {              
+                    $("#pay-btn").prop('disabled' , true);
+                    $('.spinner').removeClass('d-none');
+                    //create paymentmethod with card and validate the card details
+                    stripe.createPaymentMethod({
+                        type:  'card',
+                        card: cardElement,
+                    }).then(function(result){
+                        if(result.error){
+                            console.log("error", result.error);
+
+                            let errorMessage;
+                            switch (result.error.code) {
+                                case 'card_declined':
+                                    errorMessage = 'Your card was declined. Please check your card details or use a different card.';
+                                    break;
+                                case 'insufficient_funds':
+                                    errorMessage = 'There are insufficient funds in your account. Please add funds or use a different card.';
+                                    break;
+                                case 'invalid_card':
+                                    errorMessage = 'The card details you entered are invalid. Please check the card number, expiration date, and CVV.';
+                                    break;
+                                // Add other specific cases as needed
+                                case 'incomplete_number':
+                                    errorMessage = 'Your card number is incomplete, Please enter a valid card number.';
+                                    break;
+                                default:
+                                    errorMessage = result.error.message;
+                            }
+                            $('#card-errors').text(errorMessage);
+                            swal.fire({
+                                title: "Error",
+                                text: errorMessage,
+                                icon: "error",
+                            });
+                            $("#pay-btn").prop('disabled' , false);
+                            $('.spinner').addClass('d-none');
+                        }else{
+                            let paymentMethodId = result.paymentMethod.id;
+
+                            $.ajax({
+                                    url: "{{route('checkout.payment')}}",
+                                    method: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        amount: $('input[name="amount"]').val(),
+                                        email: $('input[name="email"]').val()
+                                    }),
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    },
+                                    success: function(data) {
+                                        console.log('data', data);
+                                        // Use the client_secret to confirm the card payment
+                                        stripe.confirmCardPayment(data.client_secret, {
+                                        payment_method: {
+                                            card: cardElement // Assuming 'card' is defined and initialized elsewhere
+                                        }
+                                    }).then(function(result) {
+                                        if (result.error) {
+                                            // Show error to your customer (e.g., insufficient funds)
+                                            $('#card-errors').text(result.error.message);
+                                            swal.fire({
+                                                title: "Error",
+                                                text: result.error.message,
+                                                icon: "error",
+                                            })
+                                            $('#pay-btn').prop('disabled', false);
+                                            $('.spinner').addClass('d-none');
+                                        }else {
+                                            if (result.paymentIntent.status === 'succeeded') {
+                                                swal.fire({
+                                                    title: "Success!",
+                                                    text: "Your payment has been processed successfully.",
+                                                    icon: "success",
+                                                }).then(() => {
+                                                    const dataToSend = encodeURIComponent(JSON.stringify(data.order));
+                                                    window.location.href = '/payment-success?data=' + dataToSend;
+                                                });
+                                            }
+                                        }
+                                    });
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        // Handle error response
+                                        console.error('AJAX error:', textStatus, errorThrown);
+                                        $('#card-errors').text('An error occurred while processing your payment. Please try again.');
+                                        swal.fire({
+                                            title: 'Oops',
+                                            text: 'An error occurred while processing your payment. Please try again.',
+                                            icon: "error",
+                                        })
+                                        $('#pay-btn').prop('disabled', false);
+                                        $('.spinner').addClass('d-none');
+                                    }
+                                });
                         }
-                    }
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    // Handle error response
-                    console.error('AJAX error:', textStatus, errorThrown);
+                    })
+                }
+            })
+
+            //validate form
+            function validateForm() {
+                // Get values from inputs
+                const email = $('input[name="email"]').val().trim();
+                const amount = $('input[name="amount"]').val().trim();
+
+                // Email validation
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#card-errors').text('Please enter a valid email address.');
                     swal.fire({
                         title: 'Oops',
-                        text: errorThrown,
+                        text: 'Please enter a valid email address',
                         icon: "error",
                     })
-                    $('#card-errors').text('An error occurred. Please try again.');
-                    $('#pay-btn').prop('disabled', false);
-                    $('.spinner').addClass('d-none');
+                    return false;
                 }
-                });
 
-            })
+                // Amount validation
+                if (isNaN(amount) || amount <= 0) {
+                    $('#card-errors').text('Please enter a valid amount greater than zero.');
+                    swal.fire({
+                        title: 'Oops',
+                        text: 'Please enter a valid amount greater than zero',
+                        icon: "error",
+                    })
+                    return false;
+                }
+
+                // Card element validation
+                // This will trigger Stripe's internal validation
+                return true;
+            }
+
         })
 	</script>
 @endpush

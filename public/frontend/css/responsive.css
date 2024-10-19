@@ -1378,6 +1378,9 @@ Version:1.0
 .footer .social ul li {
     margin-right: 0 !important;
 }
+.header .shopping .shopping-item {
+    display: none !important;
+}
 
 }
 /* Mobile Screen */

@@ -582,6 +582,7 @@ Version:1.0
 .header .shopping-list .cart-img img {
 	width: 70px;
 	height: 70px;
+	object-fit: contain;
 	border-radius:0;
 	
 }
