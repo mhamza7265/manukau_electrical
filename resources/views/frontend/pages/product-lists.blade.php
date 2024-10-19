@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','MEW || PRODUCT PAGE')
+@section('title','MEW || Products')
 
 @section('main-content')
 	
@@ -12,7 +12,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="javascript:void(0);">Shop List</a></li>
+								<li class="active"><a href="javascript:void(0);">Products</a></li>
 							</ul>
 						</div>
 					</div>

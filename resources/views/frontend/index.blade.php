@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','MEW || HOME PAGE')
+@section('title','MEW || Home')
 @section('main-content')
 
 <!-- Slider Area -->
