@@ -41,16 +41,14 @@
                             <div class="row">
                                 <div class="col-12">
                                     @php
-                                        $cart = Helper::getAllProductFromCart();
-                                        $total = 0;
-                                        foreach ($cart as $item) {
-                                           $price = $item->price;
-                                           $total += (($price * $item->quantity) + $shipping);
-                                        }
+                                        // $cart = Helper::getAllProductFromCart();
+                                        $shippingPrice = \App\Models\Shipping::where('id', $shipping)->pluck('price')->first();
+                                        $cartTotal = Helper::totalCartPrice();
+                                        $total = $cartTotal + $shippingPrice;
                                     @endphp
                                     <div class="form-group">
                                         <label for="amount">Amount:</label>
-                                        <input type="text" class="form-control py-2 px-3" value="{{$total}}" name="amount" id="amount" readonly>
+                                        <input type="text" class="form-control py-2 px-3" value="{{ceil($total)}}" name="amount" id="amount" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">

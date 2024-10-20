@@ -129,6 +129,7 @@
 										@endif
 										@php
 											$total_amount=Helper::totalCartPrice();
+											// dd($total_amount);
 											if(session()->has('coupon')){
 												$total_amount=$total_amount-Session::get('coupon')['value'];
 											}
