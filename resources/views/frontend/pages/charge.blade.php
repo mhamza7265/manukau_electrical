@@ -45,7 +45,7 @@
                                         $total = 0;
                                         foreach ($cart as $item) {
                                            $price = $item->price;
-                                           $total += ($price * $item->quantity) + $shipping;
+                                           $total += (($price * $item->quantity) + $shipping);
                                         }
                                     @endphp
                                     <div class="form-group">
