@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','MEA || MEW || Checkout - Payment')
+@section('title','MEW || Checkout - Payment')
 
 @section('main-content')
 <!-- Breadcrumbs -->
@@ -94,9 +94,11 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+           
             //initialize stripe
             var stripe = Stripe('{{ env('STRIPE_KEY') }}')
             var elements = stripe.elements();
+            //create stripe card element
             var cardElement = elements.create('card',{
                 style: {
                     base: {
@@ -117,12 +119,14 @@
                     },
                 },
             });
+            //mount card element to the DOM
+
             cardElement.mount('#card-element');
             
             // Add an event listener to the form to submit the payment when the form is submitted.
             $("#pay-btn").click(function(event){
                 event.preventDefault();
-
+                var dataRes = null;
                 // Clear previous error messages
                 $('#card-errors').text('');
 
@@ -135,34 +139,7 @@
                         card: cardElement,
                     }).then(function(result){
                         if(result.error){
-                            console.log("error", result.error);
-
-                            let errorMessage;
-                            switch (result.error.code) {
-                                case 'card_declined':
-                                    errorMessage = 'Your card was declined. Please check your card details or use a different card.';
-                                    break;
-                                case 'insufficient_funds':
-                                    errorMessage = 'There are insufficient funds in your account. Please add funds or use a different card.';
-                                    break;
-                                case 'invalid_card':
-                                    errorMessage = 'The card details you entered are invalid. Please check the card number, expiration date, and CVV.';
-                                    break;
-                                // Add other specific cases as needed
-                                case 'incomplete_number':
-                                    errorMessage = 'Your card number is incomplete, Please enter a valid card number.';
-                                    break;
-                                default:
-                                    errorMessage = result.error.message;
-                            }
-                            $('#card-errors').text(errorMessage);
-                            swal.fire({
-                                title: "Error",
-                                text: errorMessage,
-                                icon: "error",
-                            });
-                            $("#pay-btn").prop('disabled' , false);
-                            $('.spinner').addClass('d-none');
+                            getErrorMessage(result);
                         }else{
                             let paymentMethodId = result.paymentMethod.id;
 
@@ -179,35 +156,33 @@
                                     },
                                     success: function(data) {
                                         console.log('data', data);
-                                        // Use the client_secret to confirm the card payment
-                                        stripe.confirmCardPayment(data.client_secret, {
-                                        payment_method: {
-                                            card: cardElement 
-                                        }
-                                    }).then(function(result) {
-                                        if (result.error) {
-                                            // Show error to your customer (e.g., insufficient funds)
-                                            $('#card-errors').text(result.error.message);
+                                        // Ensure the response contains client_secret and order information
+                                        if (data && data.client_secret) {
+                                                // Use the client_secret to confirm the card payment
+                                                stripe.confirmCardPayment(data.client_secret, {
+                                                payment_method: {
+                                                    card: cardElement 
+                                                }
+                                            }).then(function(result) {
+                                                if (result.error) {
+                                                    // Handle payment error
+                                                    handlePaymentError(result, data);
+                                                    
+                                                }else {
+                                                    if (result.paymentIntent.status === 'succeeded') {
+                                                        handlePaymentSuccess(data.order);
+                                                    }
+                                                }
+                                            });
+                                        }else{
+                                            console.error('Invalid response:', data);
+                                            $('#card-errors').text('Unexpected response from server.');
                                             swal.fire({
                                                 title: "Error",
-                                                text: result.error.message,
+                                                text: 'Unexpected response from server.',
                                                 icon: "error",
                                             })
-                                            $('#pay-btn').prop('disabled', false);
-                                            $('.spinner').addClass('d-none');
-                                        }else {
-                                            if (result.paymentIntent.status === 'succeeded') {
-                                                swal.fire({
-                                                    title: "Success!",
-                                                    text: "Your payment has been processed successfully.",
-                                                    icon: "success",
-                                                }).then(() => {
-                                                    const dataToSend = encodeURIComponent(JSON.stringify(data.order));
-                                                    window.location.href = '/payment-success?data=' + dataToSend;
-                                                });
-                                            }
                                         }
-                                    });
                                     },
                                     error: function(jqXHR, textStatus, errorThrown) {
                                         // Handle error response
@@ -225,7 +200,80 @@
                         }
                     })
                 }
-            })
+            });
+
+            //handle payment success
+            function handlePaymentSuccess(order) {
+                swal.fire({
+                    title: "Success!",
+                    text: "Your payment has been processed successfully.",
+                    icon: "success",
+                }).then(() => {
+                    const dataToSend = encodeURIComponent(JSON.stringify(order));
+                    window.location.href = '/payment-success?data=' + dataToSend;
+                });
+            }
+
+            //handle payment error
+            function handlePaymentError(result, data){
+                // Show error to your customer (e.g., insufficient funds)
+                $('#card-errors').text(result.error.message);
+                swal.fire({
+                    title: "Error",
+                    text: result.error.message,
+                    icon: "error",
+                })
+                $('#pay-btn').prop('disabled', false);
+                $('.spinner').addClass('d-none');
+
+                //delete created order if there is an error in payment
+                $.ajax({
+                    url: `{{ route('delete.order.user', '') }}/${data.order.id}`,
+                    method: 'DELETE',
+                    data: { json: true },
+                    headers:{
+                        'X-CSRF-TOKEN': '{{csrf_token()}}'
+                    },
+                    success: function(data) {
+                        console.log('data', data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr, status, error);
+                    }
+                });
+            };
+
+            // Function to get the error message based on the error code
+            function getErrorMessage(result) {
+                console.log("error", result.error);
+                let errorMessage;
+                switch (result.error.code) {
+                    case 'card_declined':
+                        errorMessage = 'Your card was declined. Please check your card details or use a different card.';
+                        break;
+                    case 'insufficient_funds':
+                        errorMessage = 'There are insufficient funds in your account. Please add funds or use a different card.';
+                        break;
+                    case 'invalid_card':
+                        errorMessage = 'The card details you entered are invalid. Please check the card number, expiration date, and CVV.';
+                        break;
+                    // Add other specific cases as needed
+                    case 'incomplete_number':
+                        errorMessage = 'Your card number is incomplete, Please enter a valid card number.';
+                        break;
+                    default:
+                        errorMessage = result.error.message;
+                }
+                $('#card-errors').text(errorMessage);
+                swal.fire({
+                    title: "Error",
+                    text: errorMessage,
+                    icon: "error",
+                });
+                $("#pay-btn").prop('disabled' , false);
+                $('.spinner').addClass('d-none');
+            }
+
 
             //validate form
             function validateForm() {

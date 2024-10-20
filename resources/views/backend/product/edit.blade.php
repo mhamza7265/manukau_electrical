@@ -49,7 +49,7 @@
           </select>
         </div>
         @php 
-          $sub_cat_info=DB::table('categories')->select('title')->where('id',$product->child_cat_id)->get();
+          $sub_cat_info = DB::table('categories')->select('title')->where('id',$product->child_cat_id)->get();
         // dd($sub_cat_info);
 
         @endphp

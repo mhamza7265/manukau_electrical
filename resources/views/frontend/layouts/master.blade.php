@@ -4,6 +4,7 @@
 	@include('frontend.layouts.head')	
 </head>
 <body class="js">
+	@include('sweetalert::alert')
 	
 	<!-- Preloader -->
 	<div class="preloader">

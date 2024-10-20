@@ -1382,6 +1382,14 @@ Version:1.0
     display: none !important;
 }
 
+#Gslider .carousel-inner {
+    height: 239px !important;
+}
+
+#Gslider .carousel-inner img {
+    object-fit: cover;
+}
+
 }
 /* Mobile Screen */
 @media only screen and (max-width: 450px) {

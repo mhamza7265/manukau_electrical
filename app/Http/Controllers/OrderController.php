@@ -331,6 +331,20 @@ class OrderController extends Controller
         }
     }
 
+    public function deleteOrder($id){
+        $order = Order::find($id);
+        if($order){
+            $status=$order->delete();
+            if($status){
+                return response()->json(['status' => true,  'message' => 'Order Successfully deleted']);
+            }else{
+                return response()->json(['status' => false,  'message' => 'Order cannot be deleted!']);
+            }
+        }else{
+            return response()->json(['status' => false,  'message' => 'Order not found!']);
+        }
+    }
+
     public function orderTrack(){
         return view('frontend.pages.order-track');
     }

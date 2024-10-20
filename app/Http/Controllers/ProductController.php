@@ -45,7 +45,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
+        dd($request->all());
         $this->validate($request,[
             'title'=>'string|required',
             'summary'=>'string|required',
@@ -130,22 +130,31 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product=Product::findOrFail($id);
-        $this->validate($request,[
-            'title'=>'string|required',
-            'summary'=>'string|required',
-            'description'=>'string|nullable',
-            'photo'=>'string|required',
-            'size'=>'nullable',
-            'stock'=>"required|numeric",
-            'cat_id'=>'required|exists:categories,id',
-            'child_cat_id'=>'nullable|exists:categories,id',
-            'is_featured'=>'sometimes|in:1',
-            'brand_id'=>'nullable|exists:brands,id',
-            'status'=>'required|in:active,inactive',
-            // 'condition'=>'required|in:default,new,hot',
-            'price'=>'required|numeric',
-            'discount'=>'nullable|numeric'
-        ]);
+        // Set is_featured to 1 if checked, otherwise set to 0
+        $request->merge(['is_featured' => $request->has('is_featured') ? 1 : 0]);
+        try {
+            $this->validate($request, [
+                'title' => 'string|required',
+                'summary' => 'string|required',
+                'description' => 'string|nullable',
+                'photo' => 'string|required',
+                'size' => 'nullable',
+                'stock' => 'required|numeric',
+                'cat_id' => 'required|exists:categories,id',
+                'child_cat_id' => 'nullable|exists:categories,id',
+                'is_featured' => 'boolean',
+                'brand_id' => 'nullable|exists:brands,id',
+                'status' => 'required|in:active,inactive',
+                // 'condition' => 'required|in:default,new,hot',
+                'price' => 'required|numeric',
+                'discount' => 'nullable|numeric'
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $err) {
+            \Log::info($err->validator->errors()); // Log validation errors
+            toast('validation error', 'error');
+            return redirect()->back();
+        }
+        
 
         $data=$request->all();
         $data['is_featured']=$request->input('is_featured',0);

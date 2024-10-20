@@ -62,19 +62,6 @@ class PaymentController extends Controller
 
 
         $order_data = json_decode($request->data, true);
-        // $order_data['amount'] = $request->amount;
-        // $order_data['email'] = $request->email;
-        // $order_data['phone'] = $phone;
-        // $order_data['first_name'] = $firstName;
-        // $order_data['last_name'] = $lastName;
-        // $order_data['address1'] = $address1;
-        // $order_data['address2'] = $address2;
-        // $order_data['post_code'] = $postCode;
-        // $order_data['shipping'] = $shipping;
-        // $order_data['coupon'] = $coupon;
-        // $order_data['payment_method'] = $paymentMethod;
-
-
         $order_data['order_number'] = 'ORD-'.strtoupper(Str::random(10));
         $order_data['user_id'] = $request->user()->id;
         $order_data['shipping_id'] = $shipping;
@@ -129,7 +116,7 @@ class PaymentController extends Controller
             'email' => $request->email,
         ]);
 
-        // return response()->json(['status' => false, 'customer' => $customer]);
+        // get current active cart of current user
         $cartCurrent = Cart::where('user_id', auth()->user()->id)->where('order_id', null)->get();
         
         // extract cart ids from $cartCurrent and convert array into string to send  to stripe as metadata
@@ -137,9 +124,9 @@ class PaymentController extends Controller
         foreach($cartCurrent as $item){
             $cartIds[] = $item->id;
         }
+        //convert $cartIds array to string
         $string = implode(', ', $cartIds);
 
-        // return response()->json(['status' => false, 'cart' => $cartCurrent]);
         // Create a Payment Intent
         $paymentIntent = \Stripe\PaymentIntent::create([
             'amount' => $order->total_amount * 100, // Amount in cents
@@ -149,6 +136,7 @@ class PaymentController extends Controller
             'metadata' => ['order_id' => $order->id, 'cart_id' =>  $string, 'user_id' =>  auth()->user()->id],
         ]);
 
+        //get current date
        $dateToday = date('d-m-Y');
 
         return response()->json(['status' => true,  'type' => 'success', 'client_secret' => $paymentIntent->client_secret, 'order' => $order,  'date' => $dateToday]);
