@@ -32,7 +32,7 @@
                     <form class="row tracking_form my-4 form" action="{{route('product.track.order')}}" method="post" novalidate="novalidate">
                     @csrf
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control p-2"  name="order_number" placeholder="Enter your order number">
+                            <input type="text" class="form-control p-2"  name="order_number" placeholder="Enter your order number" required>
                         </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="btn submit_btn">Track Order</button>
