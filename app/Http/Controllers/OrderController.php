@@ -353,26 +353,24 @@ class OrderController extends Controller
         // return $request->all();
         $order=Order::where('user_id',auth()->user()->id)->where('order_number',$request->order_number)->first();
         if($order){
-            if($order->status=="new"){
-            request()->session()->flash('success','Your order has been placed. please wait.');
-            return redirect()->route('home');
-
+            
+            if ($order->status == "pending") {
+                request()->session()->flash('success', 'Your order has been placed. Please wait for further updates.');
+                return redirect()->back();
+            } elseif ($order->status == "processing") {
+                request()->session()->flash('success', 'Your order is currently being processed. Please wait.');
+                return redirect()->back();
+            } elseif ($order->status == "shipped") {
+                request()->session()->flash('success', 'Your order has been shipped. Please wait for delivery.');
+                return redirect()->back();
+            } elseif ($order->status == "delivered") {
+                request()->session()->flash('success', 'Your order has been successfully delivered. Thank you for shopping with us!');
+                return redirect()->back();
+            } else {
+                request()->session()->flash('error', 'Your order has been canceled. Please try again.');
+                return redirect()->back();
             }
-            elseif($order->status=="process"){
-                request()->session()->flash('success','Your order is under processing please wait.');
-                return redirect()->route('home');
-    
-            }
-            elseif($order->status=="delivered"){
-                request()->session()->flash('success','Your order is successfully delivered.');
-                return redirect()->route('home');
-    
-            }
-            else{
-                request()->session()->flash('error','Your order canceled. please try again');
-                return redirect()->route('home');
-    
-            }
+            
         }
         else{
             request()->session()->flash('error','Invalid order numer please try again');
