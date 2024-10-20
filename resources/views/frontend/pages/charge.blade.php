@@ -45,12 +45,12 @@
                                         $total = 0;
                                         foreach ($cart as $item) {
                                            $price = $item->price;
-                                           $total += $price * $item->quantity;
+                                           $total += ($price * $item->quantity) + $shipping;
                                         }
                                     @endphp
                                     <div class="form-group">
-                                        <label for="amount">Amount (in cents):</label>
-                                        <input type="text" class="form-control py-2 px-3" value="{{$total * 100}}" name="amount" id="amount" readonly>
+                                        <label for="amount">Amount:</label>
+                                        <input type="text" class="form-control py-2 px-3" value="{{$total}}" name="amount" id="amount" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">
