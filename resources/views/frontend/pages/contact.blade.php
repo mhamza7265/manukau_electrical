@@ -69,7 +69,7 @@
 										</div>
 										<div class="col-12">
 											<div class="form-group button">
-												<button type="submit" class="btn" id="contact-btn"><i class="fa fa-spinner fa-spin spinner d-none"></i> Submit</button>
+												<button type="submit" class="btn" id="contact-btn"><i class="fa fa-spinner fa-spin spinner d-none mr-1"></i> Submit</button>
 											</div>
 										</div>
 									</div>
