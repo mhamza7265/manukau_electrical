@@ -56,7 +56,7 @@ class VerificationController extends Controller
     protected function verified(Request $request)
     {
         // Flash a message to the session
-        request()->session()->flash('success', 'Your email has been successfully verified!');
+        request()->session()->flash('success', 'Your email has been verified successfully!');
 
         return redirect($this->redirectTo);
     }

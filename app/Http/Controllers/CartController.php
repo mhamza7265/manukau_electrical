@@ -50,7 +50,7 @@ class CartController extends Controller
             $cart->save();
             $wishlist=Wishlist::where('user_id',auth()->user()->id)->where('cart_id',null)->update(['cart_id'=>$cart->id]);
         }
-        request()->session()->flash('success','Product successfully added to cart');
+        request()->session()->flash('success','Product added to the cart successfully!');
         return back();       
     }  
 
@@ -64,7 +64,8 @@ class CartController extends Controller
 
         $product = Product::where('slug', $request->slug)->first();
         if($product->stock <$request->quant[1]){
-            return back()->with('error','Out of stock, You can add other products.');
+            return back()->with('error', 'Sorry, this product is out of stock. Please consider adding other products to your cart.');
+
         }
         if ( ($request->quant[1] < 1) || empty($product) ) {
             request()->session()->flash('error','Invalid Products');
@@ -96,7 +97,7 @@ class CartController extends Controller
             // return $cart;
             $cart->save();
         }
-        request()->session()->flash('success','Product successfully added to cart.');
+        request()->session()->flash('success','Product added to the cart successfully!');
         return back();       
     } 
     
@@ -104,10 +105,10 @@ class CartController extends Controller
         $cart = Cart::find($request->id);
         if ($cart) {
             $cart->delete();
-            request()->session()->flash('success','Cart successfully removed');
+            request()->session()->flash('success','Cart removed successfully!');
             return back();  
         }
-        request()->session()->flash('error','Error please try again');
+        request()->session()->flash('error','An error occured, please try again!');
         return back();       
     }     
 
@@ -138,7 +139,7 @@ class CartController extends Controller
                     $cart->amount = $after_price * $quant;
                     // return $cart->price;
                     $cart->save();
-                    $success = 'Cart successfully updated!';
+                    $success = 'Cart updated successfully!';
                 }else{
                     $error[] = 'Cart Invalid!';
                 }

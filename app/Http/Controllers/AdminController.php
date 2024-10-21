@@ -73,11 +73,11 @@ class AdminController extends Controller
         $status=$settings->fill($data)->save();
         if($status){
             toast('Settings updated successfully!', 'success');
-            request()->session()->flash('success','Setting successfully updated');
+            request()->session()->flash('success','Setting updated successfully!');
         }
         else{
             toast('Failed to update settings!', 'error');
-            request()->session()->flash('error','Please try again');
+            request()->session()->flash('error','Please try again!');
         }
         return redirect()->route('admin');
     }
@@ -95,7 +95,7 @@ class AdminController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
 
-        return redirect()->route('admin')->with('success','Password successfully changed');
+        return redirect()->route('admin')->with('success','Password changed successfully!');
     }
 
     // Pie chart
@@ -130,7 +130,7 @@ class AdminController extends Controller
             //Regenerate the storage link folder
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                request()->session()->flash('success', 'Storage linked successfully!');
                 return redirect()->back();
             }
             catch(\Exception $exception){
@@ -141,7 +141,7 @@ class AdminController extends Controller
         else{
             try{
                 Artisan::call('storage:link');
-                request()->session()->flash('success', 'Successfully storage linked.');
+                request()->session()->flash('success', 'Storage linked successfully!');
                 return redirect()->back();
             }
             catch(\Exception $exception){

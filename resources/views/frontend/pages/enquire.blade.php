@@ -60,6 +60,17 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="phone_number">Phone Number <span class="text-danger">*</span></label>
+                                    <input id="phone_number" type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" placeholder="Enter your phone number" required autocomplete="phone_number">
+                                    @error('phone_number')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label for="description">Enquiry <span class="text-danger">*</span></label>
                                     <textarea class="form-control"  name="description" id="description" value="{{old('description')}}" cols="30" rows="5" placeholder="Your enquiry" required>{{old('description')}}</textarea>
                                 </div>

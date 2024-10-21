@@ -54,11 +54,11 @@ class BannerController extends Controller
         $status=Banner::create($data);
         if($status){
             toast('Banner created succesfully!', 'success');
-            request()->session()->flash('success','Banner successfully added');
+            request()->session()->flash('success','Banner added successfully!');
         }
         else{
             toast('Banner creation error!', 'error');
-            request()->session()->flash('error','Error occurred while adding banner');
+            request()->session()->flash('error','An error occurred while adding banner');
         }
         return redirect()->route('banner.index');
     }
@@ -113,11 +113,11 @@ class BannerController extends Controller
         $status=$banner->fill($data)->save();
         if($status){
             toast('Banner updated successfully', 'success');
-            request()->session()->flash('success','Banner successfully updated');
+            request()->session()->flash('success','Banner updated successfully!');
         }
         else{
             toast('Failed to update banner', 'error');
-            request()->session()->flash('error','Error occurred while updating banner');
+            request()->session()->flash('error','An error occurred while updating banner');
         }
         return redirect()->route('banner.index');
     }
@@ -134,11 +134,11 @@ class BannerController extends Controller
         $status=$banner->delete();
         if($status){
             toast('Banner deleted successfully', 'success');
-            request()->session()->flash('success','Banner successfully deleted');
+            request()->session()->flash('success','Banner deleted successfully!');
         }
         else{
             toast('Failed to delete banner', 'error');
-            request()->session()->flash('error','Error occurred while deleting banner');
+            request()->session()->flash('error','An error occurred while deleting banner');
         }
         return redirect()->route('banner.index');
     }

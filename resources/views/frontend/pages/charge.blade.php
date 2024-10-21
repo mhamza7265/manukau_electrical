@@ -52,12 +52,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    {{-- @php
+                                    @php
                                         $userEmail = Auth::user()->email;
-                                    @endphp --}}
+                                    @endphp
                                     <div class="form-group">
                                         <label for="email">Email:</label>
-                                        <input type="text" class="form-control py-2 px-3" value="{{ old('email', $email) }}" name="email" id="email" readonly>
+                                        <input type="text" class="form-control py-2 px-3" value="{{ old('email', $userEmail) }}" name="email" id="email" readonly>
                                     </div>
                                 </div>
                                 <div class="col-12">

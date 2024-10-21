@@ -25,7 +25,6 @@ class PaymentController extends Controller
         // Retrieve data from the session
         $firstName = session('first_name');
         $lastName = session('last_name');
-        $email = session('email');
         $phone = session('phone');
         $address1 = session('address1');
         $address2 = session('address2');
@@ -35,7 +34,7 @@ class PaymentController extends Controller
         $paymentMethod = session('payment_method');
 
 
-        return view('frontend.pages.charge', compact('firstName', 'lastName', 'email', 'phone', 'address1', 'address2', 'postCode', 'shipping',  'coupon', 'paymentMethod'));
+        return view('frontend.pages.charge', compact('firstName', 'lastName', 'phone', 'address1', 'address2', 'postCode', 'shipping',  'coupon', 'paymentMethod'));
     }
 
     
@@ -50,7 +49,6 @@ class PaymentController extends Controller
         // dd($request->all());
         $firstName = session('first_name');
         $lastName = session('last_name');
-        $email = session('email');
         $phone = session('phone');
         $address1 = session('address1');
         $address2 = session('address2');

@@ -34,7 +34,7 @@
     // CACHE CLEAR ROUTE
     Route::get('cache-clear', function () {
         Artisan::call('optimize:clear');
-        request()->session()->flash('success', 'Successfully cache cleared.');
+        request()->session()->flash('success', 'Cache cleared successfully!');
         return redirect()->back();
     })->name('cache.clear');
 

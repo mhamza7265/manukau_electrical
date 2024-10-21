@@ -397,10 +397,10 @@ class FrontendController extends Controller
                 if ($user->status === 'active') {
                     Auth::login($user);
                     Session::put('user',$data['email']);
-                    request()->session()->flash('success', 'Successfully logged in');
+                    request()->session()->flash('success', 'Logged in successfully!');
                     return redirect()->route('home');
                 } else {
-                    request()->session()->flash('error', 'Your account has been deactivated. Please contact the admin.');
+                    request()->session()->flash('error', 'Your account has been deactivated. Please contact support!');
                     return redirect()->route('login.form');
                 }
             } else {
@@ -428,7 +428,7 @@ class FrontendController extends Controller
     public function logout(){
         Session::forget('user');
         Auth::logout();
-        request()->session()->flash('success','Logout successfull!');
+        request()->session()->flash('success', 'You have been logged out successfully. See you next time!');
         return redirect()->route('home');
     }
 
@@ -466,12 +466,12 @@ class FrontendController extends Controller
             $user->sendEmailVerificationNotification();
     
             // Flash a success message
-            session()->flash('success', 'Successfully registered. Please check your email for a verification link.');
+            session()->flash('success', 'Registered successfully! Please check your email for a verification link.');
     
             return redirect()->route('home'); 
 
         } else {
-            session()->flash('error', 'Oops! Something went wrong while registering your account. Please try again.');
+            session()->flash('error', 'Oops! Something went wrong. Please try again.');
             return redirect()->back();
         }
     }

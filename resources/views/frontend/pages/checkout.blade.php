@@ -33,7 +33,7 @@
                                 <h2>Checkout - Shipping Details</h2>
                                 {{-- <p>Please register in order to checkout more quickly</p> --}}
                                 <!-- Form -->
-                                <div class="row">
+                                <div class="row mt-4">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>First Name<span>*</span></label>
@@ -52,7 +52,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12">
+                                    {{-- <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Email Address<span>*</span></label>
                                             <input type="email" name="email" placeholder="Enter your email" value="{{old('email')}}" required>
@@ -60,7 +60,7 @@
                                                 <span class='text-danger'>{{$message}}</span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label>Phone Number <span>*</span></label>

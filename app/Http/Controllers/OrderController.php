@@ -60,7 +60,6 @@ class OrderController extends Controller
             'phone'=>'numeric|required',
             'country' => 'string|required',
             'post_code'=>'string|nullable',
-            'email'=>'string|required',
             'shipping' => 'required',
             'payment_method' => 'required'
         ]);
@@ -91,7 +90,6 @@ class OrderController extends Controller
         session([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'email' => $request->email,
             'phone' => $request->phone,
             'address1' => $request->address1,
             'address2' => $request->address2,
@@ -301,7 +299,7 @@ class OrderController extends Controller
             request()->session()->flash('success','Status updated successfully!');
         }
         else{
-            request()->session()->flash('error','Error updating status1');
+            request()->session()->flash('error','An error occured, please try again');
         }
         return redirect()->route('order.index');
     }
@@ -318,15 +316,15 @@ class OrderController extends Controller
         if($order){
             $status=$order->delete();
             if($status){
-                request()->session()->flash('success','Order Successfully deleted');
+                request()->session()->flash('success','Order deleted successfully!');
             }
             else{
-                request()->session()->flash('error','Order can not deleted');
+                request()->session()->flash('error','Order cannot be deleted');
             }
             return redirect()->route('order.index');
         }
         else{
-            request()->session()->flash('error','Order can not found');
+            request()->session()->flash('error','Order not found');
             return redirect()->back();
         }
     }
@@ -336,7 +334,7 @@ class OrderController extends Controller
         if($order){
             $status=$order->delete();
             if($status){
-                return response()->json(['status' => true,  'message' => 'Order Successfully deleted']);
+                return response()->json(['status' => true,  'message' => 'Order deleted Successfully!']);
             }else{
                 return response()->json(['status' => false,  'message' => 'Order cannot be deleted!']);
             }

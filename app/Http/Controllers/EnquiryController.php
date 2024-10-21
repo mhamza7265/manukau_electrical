@@ -20,6 +20,7 @@ class EnquiryController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
+            'phone_number' => 'required',
             'description' =>  'required',
             'id' =>  'required',
         ]);
@@ -28,10 +29,11 @@ class EnquiryController extends Controller
         
         $name = $request->input('name');
         $email = $request->input('email');
+        $phone_number = $request->input('phone_number');
         $description = $request->input('description');
 
-        Mail::to(env('ADMIN_EMAIL_ID'))->send(new ProductEnquiryMail($name, $email, $description,  $product));
-        request()->session()->flash('success',  'Your Enquiry has been sent successfully!');
+        Mail::to(env('ADMIN_EMAIL_ID'))->send(new ProductEnquiryMail($name, $email, $phone_number, $description,  $product));
+        request()->session()->flash('success',  'Your enquiry has been sent successfully!');
         return redirect()->back();
     }
 }

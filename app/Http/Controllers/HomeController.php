@@ -45,10 +45,10 @@ class HomeController extends Controller
         $data=$request->all();
         $status=$user->fill($data)->save();
         if($status){
-            request()->session()->flash('success','Successfully updated your profile');
+            request()->session()->flash('success','Your profile has been updated uccessfully!');
         }
         else{
-            request()->session()->flash('error','Please try again!');
+            request()->session()->flash('error','An error occured, Please try again!');
         }
         return redirect()->back();
     }
@@ -63,21 +63,21 @@ class HomeController extends Controller
         $order=Order::find($id);
         if($order){
            if($order->status=="process" || $order->status=='delivered' || $order->status=='cancel'){
-                return redirect()->back()->with('error','You can not delete this order now');
+                return redirect()->back()->with('error','This order cannot be deleted!');
            }
            else{
                 $status=$order->delete();
                 if($status){
-                    request()->session()->flash('success','Order Successfully deleted');
+                    request()->session()->flash('success','Order deleted successfully!');
                 }
                 else{
-                    request()->session()->flash('error','Order can not deleted');
+                    request()->session()->flash('error','Order cannot be deleted!');
                 }
                 return redirect()->route('user.order.index');
            }
         }
         else{
-            request()->session()->flash('error','Order can not found');
+            request()->session()->flash('error','Order not found');
             return redirect()->back();
         }
     }
@@ -115,10 +115,10 @@ class HomeController extends Controller
             $data=$request->all();
             $status=$review->fill($data)->update();
             if($status){
-                request()->session()->flash('success','Review Successfully updated');
+                request()->session()->flash('success','Review updated Successfully!');
             }
             else{
-                request()->session()->flash('error','Something went wrong! Please try again!!');
+                request()->session()->flash('error','Something went wrong! Please try again!');
             }
         }
         else{
@@ -139,10 +139,10 @@ class HomeController extends Controller
         $review=ProductReview::find($id);
         $status=$review->delete();
         if($status){
-            request()->session()->flash('success','Successfully deleted review');
+            request()->session()->flash('success','Review deleted successfully!');
         }
         else{
-            request()->session()->flash('error','Something went wrong! Try again');
+            request()->session()->flash('error','Something went wrong! Please try again');
         }
         return redirect()->route('user.productreview.index');
     }
@@ -223,7 +223,7 @@ class HomeController extends Controller
    
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
    
-        return redirect()->route('user')->with('success','Password successfully changed');
+        return redirect()->route('user')->with('success','Password changed successfully!');
     }
 
     

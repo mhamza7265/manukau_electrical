@@ -15,6 +15,7 @@ class ProductEnquiryMail extends Mailable
 
     public $name;
     public $email;
+    public $phone;
     public $description;
     public $product;
 
@@ -23,20 +24,25 @@ class ProductEnquiryMail extends Mailable
      *
      * @return void
      */
-
-    public function __construct($name, $email, $description, $product)
+    public function __construct($name, $email, $phone, $description, $product)
     {
         $this->name = $name;
         $this->email = $email;
+        $this->phone = $phone;
         $this->description = $description;
         $this->product = $product;
     }
 
-
     public function build()
     {
         return $this->subject('Product Enquiry')
-        ->markdown('emails.product_enquiry')
-        ->with(['name' => $this->name, 'email' => $this->email,  'description' => $this->description, 'product' => $this->product]);
+            ->markdown('emails.product_enquiry')
+            ->with([
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'description' => $this->description,
+                'product' => $this->product,
+            ]);
     }
 }

@@ -5,6 +5,8 @@
 - Product ID: {{ $product->id}} 
 - Contact Name: {{ $name }}
 - Contact Email: {{ $email }}
+-  Contact Phone: {{ $phone }}
+
 - Enquiry: {{ $description }}
 
 

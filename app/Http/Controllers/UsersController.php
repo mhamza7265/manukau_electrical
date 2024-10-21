@@ -53,11 +53,11 @@ class UsersController extends Controller
         // dd($status);
         if($status){
             toast('User created successfully!', 'success');
-            request()->session()->flash('success','Successfully added user');
+            request()->session()->flash('success','User added successfully!');
         }
         else{
             toast('Failed to create user!', 'error');
-            request()->session()->flash('error','Error occurred while adding user');
+            request()->session()->flash('error','An error occurred, please try again');
         }
         return redirect()->route('users.index');
 
@@ -111,11 +111,12 @@ class UsersController extends Controller
         $status=$user->fill($data)->save();
         if($status){
             toast('User updated successfully!', 'success');
-            request()->session()->flash('success','Successfully updated');
+            request()->session()->flash('success','User updated successfully!');
         }
         else{
             toast('Failed to update user!', 'error');
-            request()->session()->flash('error','Error occured while updating');
+            request()->session()->flash('error','An error occured, please try again!');
+
         }
         return redirect()->route('users.index');
 
@@ -133,11 +134,11 @@ class UsersController extends Controller
         $status=$delete->delete();
         if($status){
             toast('User deleted successfully!', 'success');
-            request()->session()->flash('success','User Successfully deleted');
+            request()->session()->flash('success','User deleted successfully!');
         }
         else{
             toast('Failed to delete user!', 'error');
-            request()->session()->flash('error','There is an error while deleting users');
+            request()->session()->flash('error','An error occured, please try again');
         }
         return redirect()->route('users.index');
     }
@@ -159,7 +160,8 @@ class UsersController extends Controller
             request()->session()->flash('success','User status updated successfully!');
         }else{
             toast('Failed to update user status!', 'error');
-            request()->session()->flash('error','Failed to update user status!');
+            request()->session()->flash('error','An error occured, please try again!');
+
         }
         return redirect()->back();
     }
