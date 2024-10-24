@@ -5305,6 +5305,10 @@ button:focus {
 	text-decoration: underline;
 }
 
+.site-name{
+	display: block !important;
+}
+
 @media (max-width:769px) {
 	.header-inner{
 		display: none;

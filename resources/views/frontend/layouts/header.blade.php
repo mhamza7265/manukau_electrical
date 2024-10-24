@@ -24,6 +24,7 @@
                     
                     <!--/ End Top Left -->
                 </div>
+                <h6 class="site-name" style="color: #fff">MANUKAU ELECTRICAL WAREHOUSE</h6>
                 <div class="">
                     <!-- Top Right -->
                     <div class="right-content d-flex align-items-center justify-content-around">
@@ -44,6 +45,7 @@
                                 <li class="mobile-login-btn"><i class="ti-power-off"></i><a href="{{route('login.form')}}">Login</a></li>
                             @endauth
                         </ul>
+                        
                         <div class="right-bar ml-3">
                             <!-- Search Form -->
                             <div class="sinlge-bar shopping">
@@ -275,7 +277,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-12 col-12">
+                <div class="col-lg-5 col-md-5 col-12">
                     <div class="search-bar-top">
                         <div class="search-bar">
                             <select>
@@ -292,6 +294,9 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="col-lg-4">
+                    <h4 style="color: #DB9C3D">MANUKAU ELECTRICAL WAREHOUSE</h4>
+                </div> --}}
             </div>
         </div>
     </div>

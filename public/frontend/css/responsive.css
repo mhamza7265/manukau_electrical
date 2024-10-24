@@ -1390,6 +1390,10 @@ Version:1.0
     object-fit: cover;
 }
 
+.site-name{
+	display: none !important;
+}
+
 }
 /* Mobile Screen */
 @media only screen and (max-width: 450px) {
